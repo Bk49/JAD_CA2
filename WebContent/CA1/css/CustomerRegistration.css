@@ -1,0 +1,31 @@
+/* 
+  - Author(s): LIEW KHYE LERK(P1937000), ERIC NG YONG WEI(P1940211);
+  - Date: 29/5/20;
+*/
+@charset "utf-08";
+
+body {
+			    background-color: rgb(28,28,28);
+	
+}
+
+form {
+		background-color: rgb(35,38,47)!important;
+		width: 500px;
+		border-radius: 20px;
+		height: 660px;
+		position: absolute;
+		top: 3%;
+}
+
+input {
+	width: 70%;
+	border: none;
+	padding: 10px;
+	margin:10px;
+}
+
+
+.submit{
+		border-radius: 20px !important;
+}

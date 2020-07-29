@@ -1,0 +1,38 @@
+/* 
+  - Author(s): LIEW KHYE LERK(P1937000), ERIC NG YONG WEI(P1940211);
+  - Date: 29/5/20;
+*/
+@charset "utf-08";
+
+table{
+	margin-left:auto;
+	margin-right:auto;
+}
+
+.navbar-custom { 
+    background-color: rgb(34,38,48)!important; 
+} 
+
+.pagination {
+  display: inline-block;
+}
+
+.pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  border: 1px solid #ddd;
+}
+
+.pagination a:hover:not(.active) {background-color: #ddd;}
+
+.pagination a:first-child {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.pagination a:last-child {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
