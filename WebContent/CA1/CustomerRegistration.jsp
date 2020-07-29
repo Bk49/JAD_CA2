@@ -6,7 +6,7 @@
 <meta charset="ISO-8859-1">
 <title>Registration Page</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-<link rel="stylesheet" type="text/css" href="./CA1/CSS/CustomerRegistration.css">
+<link rel="stylesheet" type="text/css" href="./css/CustomerRegistration.css">
 </head>
 <body>
 <div class="d-flex justify-content-center text-center">
