@@ -6,12 +6,12 @@
 <meta charset="ISO-8859-1">
 <title>Registration Page</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-<link rel="stylesheet" type="text/css" href="./css/CustomerRegistration.css">
+<link rel="stylesheet" type="text/css" href="./CA1/css/CustomerRegistration.css">
 </head>
 <body>
 <div class="d-flex justify-content-center text-center">
 
-	<form action="../InsertUser.java" method="post"><br>
+	<form action="./InsertUser" method="post"><br>
 		<h2 class="text-warning">SHOPMANIA REGISTER</h2>
 		<input type="text" name="fname" placeholder="First Name" required/>
 		<input type="text" name="lname" placeholder="Last Name" required/>
@@ -19,7 +19,7 @@
 		<input type="password" name="pwd" placeholder="Password" required/>
 		<input type="password" name="pwdc" placeholder="Confirm Password" required/>
 		<input type="text" name="address" placeholder="Address"/>
-		<input type="number" name="phoneNo" placeholder="Phone Number"/>
+		<input  type='tel' pattern='[0-9]{8,14}' name="phoneNo" placeholder="Phone Number"/>
 			<%
 			String errorCode = request.getParameter("errorCode");
 				if("invalidPw".equals(errorCode)){
@@ -30,7 +30,7 @@
 			}
 			%>;
 		<input type="submit" class="submit bg-warning" value="SUBMIT"/>
-		<p class="text-white">Already have an account? <a href="Login.jsp">Sign in here</a></p>
+		<p class="text-white">Already have an account? <a href="./CA1/Login.jsp">Sign in here</a></p>
 		
 
 			

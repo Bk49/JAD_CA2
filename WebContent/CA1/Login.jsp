@@ -21,7 +21,7 @@
 			}
 			%>;
 		<input type="submit" class="submit bg-warning" value="LOGIN"/>
-		<p class="text-white">Don't have an account? <a href="CustomerRegistration.jsp">Sign up here</a></p>
+		<p class="text-white">Don't have an account? <a href="../InsertUser">Sign up here</a></p>
 	</form>
 </div>
 

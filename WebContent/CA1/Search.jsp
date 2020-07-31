@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Home</title>
+<title>Search</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 <link rel="stylesheet" type="text/css" href="./CA1/css/Home.css">
 <link rel="stylesheet" type="text/css" href="./CA1/css/footer.css">
@@ -41,8 +41,8 @@ for (String category : categories) {
 }
 
 }catch(Exception e){
-	RequestDispatcher rd = request.getRequestDispatcher("../GoHome");
-	rd.forward(request, response);
+	//RequestDispatcher rd = request.getRequestDispatcher("../GoHome");
+	//rd.forward(request, response);
 	}
 
 %>
@@ -76,93 +76,9 @@ for (String category : categories) {
   </div>
 </nav>
 
-<div class="main">
-      <div class="mainBackground">
-        <div class="maintext"><p id="mainPara">WELCOME TO SHOPMANIA!</p></div>
-        <div class="subtext"><p id="subPara">Check out our products</p></div>
-        <a class="btn btn-warning btn-lg exploreBtn" href="#Category" role="button">SHOP NOW</a>
-      </div>
-</div>
-<br>
-<br>
-
-<div class="container text-center catCon">
-     <h1 class=" text-warning" id="Category">Categories</h1>
-
-  <div class="card-deck row row-col-4">
-  <div class="card catCard" >
-    <a href="./GoProductListing?category=Gaming Mouse">
-      <img src="./images/Gaming Mouse Icon.png" class="card-img-top catIcon" alt="...">
-    </a>
-      <div class="card-body">
-           <h5 class="card-title text-white"><a href="./GoProductListing?category=Gaming Mouse"> Gaming Mouse </a></h5>
-    </div>
-  </div>
-  
-    <div class="card catCard" style="width: 10rem;">
-    <a href="./GoProductListing?category=Gaming Keyboard">   
-    <img src="./images/Gaming Keyboard Icon.png" class="card-img-top catIcon" alt="...">
-    </a>
-      <div class="card-body">
-        <h5 class="card-title text-white"><a href="./GoProductListing?category=Gaming Keyboard">Gaming Keyboard</a></h5>
-    </div>
-  </div>
-  
-    <div class="card catCard" style="width: 10rem;">
-      <a href="./GoProductListing?category=Computer Graphics Card">   
-        <img src="./images/Graphics Card Icon.png" class="card-img-top catIcon" alt="...">
-      </a>
-      <div class="card-body">
-        <h5 class="card-title text-white"><a href="./GoProductListing?category=Computer Graphics Card">Computer Graphics Card </a></h5>
-    </div>
-  </div>
-  
-   <div class="card catCard" style="width: 10rem;">
-      <a href="./GoProductListing?category=Gaming Mouse Pad">   
-        <img src="./images/Gaming Mouse Pad.png" class="card-img-top catIcon" alt="...">
-      </a>
-      <div class="card-body">
-        <h5 class="card-title text-white"><a href="./GoProductListing?category=Gaming Mouse Pad">Gaming Mouse Pads</a></h5>
-    </div>
-  </div>
-  <div class="card catCard" style="width: 10rem;">
-    <a href="./GoProductListing?category=Gaming Headphones">   
-       <img src="./images/Gaming Headphones Icon.png" class="card-img-top catIcon1" alt="...">
-    </a>
-      <div class="card-body">
-        <h5 class="card-title text-white"><a href="./GoProductListing?category=Gaming Headphones">Gaming Headphones</a></h5>
-    </div>
-  </div>
-  </div>
-</div>
-
-<br>
-<br>
-
+<!-- Style here for search -->
 <%
-   		out.print("<div class=\"container margin\">");
-   		out.print("<h2 class=\"text-warning text-center\">All Products</h2>");
-   		out.print("<div class=\"row row-cols-2 row-cols-md-3\">");
-   		
-   		ArrayList<ProductDetails> products =(ArrayList<ProductDetails>) request.getAttribute("randomProducts");
-   		System.out.print(products.size());
-   		
-   		for (ProductDetails product: products) {
-   			out.print(
-        "<div class=\"col mb-4\">" +
-          "<div class=\"card cardProduct \">" +
-		      "<a href='./GoProductDetail?productId="+product.getProductId()+"'>"+
-                "<img src='."+product.getImageLocation()+"' class=\"card-img-top\" alt=\"...\">" +
-            "<div class=\"card-body\">" +
-                "<h5 class=\"card-title\">"+product.getProductName()+"</h5>" +
-                "<p class=\"card-text\">"+String.format("%.2f", product.getCostPrice())+"</p>" +
-    		  "</a>" +
-            "</div>"+
-          "</div>"+
-        "</div>");
-   		}
-        out.print("</div>");
-        out.print("</div>");
+
 %>
 <%@ include file = "footer.jsp" %>
 

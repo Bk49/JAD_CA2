@@ -1,34 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@page import ="java.sql.*"%>
-<%@page import ="valueBean.UserDetails" %>
+    <%@page import="java.sql.*,java.lang.*" %>
+    <%@page import="java.util.ArrayList" %>    
+    <%@page import="valueBean.ProductDetails" %> 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Administrator</title>
+<title>Orders</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-<base href="<%= request.getContextPath() %>/CA1/" target="_self">
-<link rel="stylesheet" type="text/css" href="./css/Administrator.css">
+<link rel="stylesheet" type="text/css" href="./CA1/css/productTable.css">
 </head>
 <body>
-<%
-UserDetails user = (UserDetails)session.getAttribute("user");
-
-String name="";
-String email="";
-String pfp="";
-String address="";
-String phoneNo = "";
-
-if(user!=null){
-	name= user.getName();
-	email= user.getEmail();
-	pfp= user.getPfp();
-	address= user.getAddress();
-	phoneNo= user.getPhoneNo();
-}
-%>
 
 <nav class="navbar navbar-expand-lg navbar-custom navbar-dark ">
  		 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -37,13 +20,13 @@ if(user!=null){
 		  <div class="collapse navbar-collapse" id="navbarSupportedContent">
   		  <ul class="navbar-nav mr-auto">
     		  <li class="nav-item active">
-    		    <a class="nav-link" href="../GoHome">Home <span class="sr-only">(current)</span></a>
+    		    <a class="nav-link" href="../CA2/GoHome">Home <span class="sr-only">(current)</span></a>
     		  </li>
     		  <li class="nav-item active">
-    		    <a class="nav-link" href="../GoDiscountTable?pg=1">Edit Discounts<span class="sr-only">(current)</span></a>
+    		    <a class="nav-link" href="../CA2/GoDiscountTable">Edit Discounts<span class="sr-only">(current)</span></a>
     		  </li>
     		  <li class="nav-item active">
-    		    <a class="nav-link" href="../GoProductTable?pg=1">Edit Products<span class="sr-only">(current)</span></a>
+    		    <a class="nav-link" href="../CA2/GoProductTable">Edit Products<span class="sr-only">(current)</span></a>
     		  </li>
     		  <li class="nav-item active">
     		    <a class="nav-link" href="">Edit Users<span class="sr-only">(current)</span></a>
@@ -56,28 +39,55 @@ if(user!=null){
   </div>
 </nav>
 
-  
-<div class="container text-center ">
-	<div class="row">
+<div class="container text-center">
+<h1>Orders</h1>
 
-	  <div class="card" style="width: 18rem;" >
-	  	     		   <h3 class="text-white">Administrator:</h3>
-      		<img src=".<%=pfp %>" class="card-img-top" alt="Card image cap">
-     	 <div class="card-body">
-        	   <p class="card-title text-white">Name: <%=name %></p>
-       	       <p class="card-title text-white">Email: <%=email %></p>
-       	       <p class="card-title text-white">Address: <%=address %></p>
-      	       <p class="card-title text-white">Phone No: <%=phoneNo %></p>
-         </div>
-	    </div>
-	    
 
-	</div>
-	
+<table class="table table-striped table-hover" > <!-- All products will be pushed into this table -->
+<tr>
+<th>No.</th>
+<th>Order Col</th>
+<th>Order Col</th>
+<th>Order Col</th>
+<th>Order Col</th>
+<th>Order Col</th>
+
+
+</tr>
+<%    
+int pg= (int)request.getAttribute("pg");
+int count = pg*10-10+1;
+
+ArrayList<ProductDetails> products = (ArrayList<ProductDetails>)request.getAttribute("products");
+	for(ProductDetails product: products){
+       out.print("<tr>"+
+       "<td>"+count+"</td>"+
+    //   "<td>"++"</td>"+
+     //  "<td>"++"</td>"+
+    //   "<td>"++"</td>"+
+     //  "<td>"++"</td>"+
+     //  "<td>"++"</td>"+
+       "</tr>");
+       count++;
+	}
+
+%>
+</table>
+
+<!-- Use this button to access to the next 10 rows in the second page -->
+<div class='pagination'>
+<%
+	double noOfProducts;
+	noOfProducts = (double)request.getAttribute("productCount");
+   
+        double Pages = (double)Math.ceil((double) noOfProducts/(double)10.0);
+
+        for(int i = 0 ; i < Pages; i++)
+     out.print("<a  class='active' href='GoProductTable?pg="+(i+1)+"'>"+ (i+1) +"</a>");	          
+		          
+%>
 </div>
-
-
-
+</div>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
