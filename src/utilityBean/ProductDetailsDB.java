@@ -12,8 +12,8 @@ public class ProductDetailsDB {
 		ProductDetails product = new ProductDetails();
 		try {
 	           Class.forName("com.mysql.jdbc.Driver");
-	          String connURL = "jdbc:mysql://localhost/jad?user=root&password=Devious1211&serverTimezone=UTC";
-	          // String connURL = "jdbc:mysql://localhost:3306/jad?user=root&password=khyelerk12KL&serverTimezone=UTC";
+	         // String connURL = "jdbc:mysql://localhost/jad?user=root&password=Devious1211&serverTimezone=UTC";
+	           String connURL = "jdbc:mysql://localhost:3306/jad?user=root&password=khyelerk12KL&serverTimezone=UTC";
 
 	          Connection conn = DriverManager.getConnection(connURL); 
 	          String sqlStr = "SELECT * FROM product WHERE productId = ?";
@@ -45,7 +45,9 @@ public class ProductDetailsDB {
 		int count = 0;
 		try {
 	           Class.forName("com.mysql.jdbc.Driver");
-	           String connURL = "jdbc:mysql://localhost/jad?user=root&password=Devious1211&serverTimezone=UTC";
+		         // String connURL = "jdbc:mysql://localhost/jad?user=root&password=Devious1211&serverTimezone=UTC";
+	           String connURL = "jdbc:mysql://localhost:3306/jad?user=root&password=khyelerk12KL&serverTimezone=UTC";
+	           
 	         Connection conn = DriverManager.getConnection(connURL); 
 	         
 	         String insertStr = "INSERT INTO product(productName, briefDescription, detailDescription, costPrice, retailPrice, stockQuantity, productCategory, imageLocation) VALUES (?,?,?,?,?,?,?,?) ";
@@ -72,7 +74,10 @@ public class ProductDetailsDB {
 	public int deleteProduct(int productId) {
 		int count = 0;
 		try {
-	         String connURL = "jdbc:mysql://localhost/jad?user=root&password=Devious1211&serverTimezone=UTC";
+	         // String connURL = "jdbc:mysql://localhost/jad?user=root&password=Devious1211&serverTimezone=UTC";
+	           String connURL = "jdbc:mysql://localhost:3306/jad?user=root&password=khyelerk12KL&serverTimezone=UTC";	         
+	         
+	         
 	         Connection conn = DriverManager.getConnection(connURL); 
 	         
 	         String deleteStr = "DELETE FROM product WHERE productId = ?";
@@ -91,8 +96,11 @@ public class ProductDetailsDB {
 	public int updateProduct(ProductDetails product) {
 		int count = 0;
 		try {
-	         String connURL = "jdbc:mysql://localhost/jad?user=root&password=Devious1211&serverTimezone=UTC";
-	         Connection conn = DriverManager.getConnection(connURL); 
+	         // String connURL = "jdbc:mysql://localhost/jad?user=root&password=Devious1211&serverTimezone=UTC";
+	           String connURL = "jdbc:mysql://localhost:3306/jad?user=root&password=khyelerk12KL&serverTimezone=UTC";
+
+			
+			Connection conn = DriverManager.getConnection(connURL); 
 	         
 	         String insertStr = "UPDATE product SET productName = ?, briefDescription = ?, detailDescription = ?, costPrice = ?, retailPrice = ?, stockQuantity = ?, productCategory = ?, imageLocation = ? WHERE productId = ?";
 		 	PreparedStatement pstmt = conn.prepareStatement(insertStr);
@@ -120,8 +128,8 @@ public class ProductDetailsDB {
 		ArrayList<String> categories = new ArrayList<String>();
 		try {
 	           Class.forName("com.mysql.jdbc.Driver");
-	          String connURL = "jdbc:mysql://localhost/jad?user=root&password=Devious1211&serverTimezone=UTC";
-	          // String connURL = "jdbc:mysql://localhost:3306/jad?user=root&password=khyelerk12KL&serverTimezone=UTC";
+	          //String connURL = "jdbc:mysql://localhost/jad?user=root&password=Devious1211&serverTimezone=UTC";
+	           String connURL = "jdbc:mysql://localhost:3306/jad?user=root&password=khyelerk12KL&serverTimezone=UTC";
 
 	          Connection conn = DriverManager.getConnection(connURL); 
 	          String sqlStr = "SELECT DISTINCT productCategory FROM product";
@@ -145,8 +153,8 @@ public class ProductDetailsDB {
 		ProductDetails product;
 		try {
 	           Class.forName("com.mysql.jdbc.Driver");
-	          String connURL = "jdbc:mysql://localhost/jad?user=root&password=Devious1211&serverTimezone=UTC";
-	          // String connURL = "jdbc:mysql://localhost:3306/jad?user=root&password=khyelerk12KL&serverTimezone=UTC";
+	         // String connURL = "jdbc:mysql://localhost/jad?user=root&password=Devious1211&serverTimezone=UTC";
+	           String connURL = "jdbc:mysql://localhost:3306/jad?user=root&password=khyelerk12KL&serverTimezone=UTC";
 
 	          Connection conn = DriverManager.getConnection(connURL); 
 	          String sqlStr = "SELECT productId,productName, costPrice, imageLocation FROM jad.product ORDER BY RAND() LIMIT 10";
@@ -176,8 +184,8 @@ public class ProductDetailsDB {
 				int startRow = pg*10-10;
 				try {
 			           Class.forName("com.mysql.jdbc.Driver");
-			          String connURL = "jdbc:mysql://localhost/jad?user=root&password=Devious1211&serverTimezone=UTC";
-			          // String connURL = "jdbc:mysql://localhost:3306/jad?user=root&password=khyelerk12KL&serverTimezone=UTC";
+			        //  String connURL = "jdbc:mysql://localhost/jad?user=root&password=Devious1211&serverTimezone=UTC";
+			           String connURL = "jdbc:mysql://localhost:3306/jad?user=root&password=khyelerk12KL&serverTimezone=UTC";
 
 			          Connection conn = DriverManager.getConnection(connURL); 
 			          String sqlStr = "SELECT productId, productName, costPrice, retailPrice, stockQuantity, productCategory FROM product LIMIT ?,10";
@@ -208,8 +216,8 @@ public class ProductDetailsDB {
 				double count = 0;
 				try {
 			           Class.forName("com.mysql.jdbc.Driver");
-			          String connURL = "jdbc:mysql://localhost/jad?user=root&password=Devious1211&serverTimezone=UTC";
-			          // String connURL = "jdbc:mysql://localhost:3306/jad?user=root&password=khyelerk12KL&serverTimezone=UTC";
+			        //  String connURL = "jdbc:mysql://localhost/jad?user=root&password=Devious1211&serverTimezone=UTC";
+			           String connURL = "jdbc:mysql://localhost:3306/jad?user=root&password=khyelerk12KL&serverTimezone=UTC";
 
 			          Connection conn = DriverManager.getConnection(connURL); 
 			          String sqlStr = "SELECT COUNT(*) count FROM product";
@@ -227,16 +235,19 @@ public class ProductDetailsDB {
 			}
 			
 			// Get products based on category
-			public ArrayList<ProductDetails> getProductsOnCats(String categoryName){
+			public ArrayList<ProductDetails> getProductsOnCats(String categoryName, int pg){
 				ArrayList<ProductDetails> products = new ArrayList<ProductDetails>();
 				ProductDetails product;
+				
+				int startRow = pg*9-9;
+
 				try {
 			           Class.forName("com.mysql.jdbc.Driver");
-			          String connURL = "jdbc:mysql://localhost/jad?user=root&password=Devious1211&serverTimezone=UTC";
-			          // String connURL = "jdbc:mysql://localhost:3306/jad?user=root&password=khyelerk12KL&serverTimezone=UTC";
+			         // String connURL = "jdbc:mysql://localhost/jad?user=root&password=Devious1211&serverTimezone=UTC";
+			           String connURL = "jdbc:mysql://localhost:3306/jad?user=root&password=khyelerk12KL&serverTimezone=UTC";
 
 			          Connection conn = DriverManager.getConnection(connURL); 
-			          String sqlStr = "SELECT productId, productName, briefDescription, costPrice, retailPrice, imageLocation FROM product WHERE productCategory LIKE ?";
+			          String sqlStr = "SELECT productId, productName, briefDescription, costPrice, retailPrice, imageLocation FROM product WHERE productCategory LIKE ? LIMIT "+startRow+",9";         
 
 			    		PreparedStatement pstmt = conn.prepareStatement(sqlStr);
 			    		pstmt.setString(1, categoryName);
@@ -258,5 +269,31 @@ public class ProductDetailsDB {
 				System.out.println(products.size());
 				return products;
 			}
+			
+			// Get count of discounts
+			public double getProductCategoryCount(String category) {
+				double noOfProducts = 0;
+				try {
+			           Class.forName("com.mysql.jdbc.Driver");
+			        //  String connURL = "jdbc:mysql://localhost/jad?user=root&password=Devious1211&serverTimezone=UTC";
+			           String connURL = "jdbc:mysql://localhost:3306/jad?user=root&password=khyelerk12KL&serverTimezone=UTC";
+
+			          Connection conn = DriverManager.getConnection(connURL); 
+			          String sqlStr = "SELECT COUNT(*) count FROM product WHERE productCategory LIKE ? "; 
+						ResultSet rs;
+				          
+				          PreparedStatement pstmt = conn.prepareStatement(sqlStr);
+				          pstmt.setString(1,category);
+				  		  rs = pstmt.executeQuery();       
+			          if (rs.next()) {
+			        	  noOfProducts = (double)rs.getInt("count");
+			          }	        
+			          conn.close();
+			     } catch (Exception e) {
+			        System.err.println("Error :" + e);
+			     }
+				return noOfProducts;
+			}
+			
 	
 }

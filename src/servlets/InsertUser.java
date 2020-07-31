@@ -39,15 +39,13 @@ public class InsertUser extends HttpServlet {
 		String email = request.getParameter("email");
 		String pwd = request.getParameter("pwd");
 		String pwdc = request.getParameter("pwdc");
-		if(pwd.equals(pwdc)) {
+		if(!pwd.equals(pwdc)) {
 			RequestDispatcher rd = request.getRequestDispatcher("CA1/CustomerRegistration.jsp?errorCode=invalidPw");
 			rd.forward(request, response);
 		}
 		String address = request.getParameter("address");
 		String phoneNoStr = request.getParameter("phoneNo");
-		int phoneNo;
-		if(phoneNoStr.equals("")) phoneNo = 0;
-		else phoneNo = Integer.parseInt(phoneNoStr);
+		if(phoneNoStr.equals("")) phoneNoStr = "0";
 		
 		UserDetailsDB userDB = new UserDetailsDB();
 		UserDetails user = new UserDetails();	
@@ -56,7 +54,7 @@ public class InsertUser extends HttpServlet {
 		user.setEmail(email);
 		user.setPwd(pwd);
 		user.setAddress(address);
-		user.setPhoneNo(phoneNo);
+		user.setPhoneNo(phoneNoStr);
 		user.setRole("M");
 		user.setPfp("/images/u101.png");
 		

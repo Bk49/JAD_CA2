@@ -40,7 +40,7 @@ public class UpdateProfile extends HttpServlet {
 		String name = request.getParameter("name");
 		String email = request.getParameter("email");
 		String pfp = request.getParameter("pfp");
-		int phoneNo = Integer.parseInt(request.getParameter("phoneNo"));
+		String phoneNo = request.getParameter("phoneNo");
 		
 		// Setting all the attributes into a value bean
 		UserDetails user = new UserDetails();

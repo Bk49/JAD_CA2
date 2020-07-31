@@ -9,20 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import utilityBean.DiscountDetailsDB;
-import valueBean.DiscountDetails;
+import java.util.ArrayList;
+import utilityBean.ProductDetailsDB;
 
 /**
- * Servlet implementation class AddDiscount
+ * Servlet implementation class GetProductCategory
  */
-@WebServlet("/AddDiscount")
-public class AddDiscount extends HttpServlet {
+@WebServlet("/GoProfilePage")
+public class GoProfilePage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AddDiscount() {
+    public GoProfilePage() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,29 +32,25 @@ public class AddDiscount extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
+		// Get all the product categories
 		try {
-			String discountCode = request.getParameter("discountCode");
-			double discountValue = Double.parseDouble(request.getParameter("discountValue"));
-			String discountType = request.getParameter("discountType");
-			int usageLimit = Integer.parseInt(request.getParameter("usageLimit"));
+			ProductDetailsDB productDB = new ProductDetailsDB();
+			ArrayList<String> categories = new ArrayList<String>();
 			
-			DiscountDetailsDB discountDB = new DiscountDetailsDB();
-			DiscountDetails discount = new DiscountDetails();	
+			categories = productDB.getProductCategories();
 			
-			discount.setDiscountCode(discountCode);
-			discount.setDiscountValue(discountValue);
-			discount.setDiscountType(discountType);
-			discount.setUsageLimit(usageLimit);
-			
-			int count = discountDB.insertDiscount(discount);
-			
-			System.out.print(count+" row affected");
-			
-			RequestDispatcher rd = request.getRequestDispatcher("/GoDiscountTable");
-			rd.forward(request, response);
+			request.setAttribute("productCategories", categories);
+
 			}catch(Exception e){
 				System.out.print(e);
 			}
+		
+			
+		
+		// Forward to Home Page
+		RequestDispatcher rd = request.getRequestDispatcher("CA1/profilePage.jsp");
+		rd.forward(request, response);
 	}
 
 	/**

@@ -8,8 +8,8 @@ public class UserDetailsDB {
         UserDetails user = new UserDetails();
 		try {
 	           Class.forName("com.mysql.jdbc.Driver");
-	          String connURL = "jdbc:mysql://localhost/jad?user=root&password=Devious1211&serverTimezone=UTC";
-	          // String connURL = "jdbc:mysql://localhost:3306/jad?user=root&password=khyelerk12KL&serverTimezone=UTC";
+	          //String connURL = "jdbc:mysql://localhost/jad?user=root&password=Devious1211&serverTimezone=UTC";
+	           String connURL = "jdbc:mysql://localhost:3306/jad?user=root&password=khyelerk12KL&serverTimezone=UTC";
 
 	          Connection conn = DriverManager.getConnection(connURL); 
 	          String sqlStr = "SELECT userId, name, pfp, address, phoneNo, role FROM user WHERE email = ? AND pwd = ?";
@@ -26,7 +26,7 @@ public class UserDetailsDB {
 	              user.setRole(rs.getString("role"));
 	              user.setPfp(rs.getString("pfp"));
 	              user.setAddress(rs.getString("address"));
-	              user.setPhoneNo(rs.getInt("phoneNo"));
+	              user.setPhoneNo(rs.getString("phoneNo"));
 	              user.setUserId(rs.getInt("userId"));
 	          }
 	        
@@ -41,10 +41,13 @@ public class UserDetailsDB {
 	public int insertUser(UserDetails user) {
 		int count = 0;
 		try {
-	         String connURL = "jdbc:mysql://localhost/db1?user=root&password=Devious1211&serverTimezone=UTC";
-	         Connection conn = DriverManager.getConnection(connURL); 
+
+	         // String connURL = "jdbc:mysql://localhost/jad?user=root&password=Devious1211&serverTimezone=UTC";
+	           String connURL = "jdbc:mysql://localhost:3306/jad?user=root&password=khyelerk12KL&serverTimezone=UTC";
+			
+			Connection conn = DriverManager.getConnection(connURL); 
 	         
-	         String insertStr = "INSERT INTO user(name, pwd, email, role, pfp, address, phoneNo VALUES (?,?,?,?,?,?,?) ";
+	         String insertStr = "INSERT INTO user(name, pwd, email, role, pfp, address, phoneNo) VALUES (?,?,?,?,?,?,?) ";
 		 	PreparedStatement pstmt = conn.prepareStatement(insertStr);
 	         pstmt.setString(1, user.getName());
 	         pstmt.setString(2, user.getPwd());
@@ -52,7 +55,7 @@ public class UserDetailsDB {
 	         pstmt.setString(4, user.getRole());
 	         pstmt.setString(5, user.getPfp());
 	         pstmt.setString(6, user.getAddress());
-	         pstmt.setInt(7, user.getPhoneNo());
+	         pstmt.setString(7, user.getPhoneNo());
 
 	         count = pstmt.executeUpdate();
 	         conn.close(); 
@@ -67,8 +70,11 @@ public class UserDetailsDB {
 	public int deleteUser(int userId) {
 		int count = 0;
 		try {
-	         String connURL = "jdbc:mysql://localhost/db1?user=root&password=Devious1211&serverTimezone=UTC";
-	         Connection conn = DriverManager.getConnection(connURL); 
+	         // String connURL = "jdbc:mysql://localhost/jad?user=root&password=Devious1211&serverTimezone=UTC";
+	           String connURL = "jdbc:mysql://localhost:3306/jad?user=root&password=khyelerk12KL&serverTimezone=UTC";
+			
+			
+			Connection conn = DriverManager.getConnection(connURL); 
 	         
 	         String deleteStr = "DELETE FROM user WHERE userId = ?";
 	         PreparedStatement pstmt = conn.prepareStatement(deleteStr);
@@ -86,15 +92,18 @@ public class UserDetailsDB {
 	public int updateUser(UserDetails user) {
 		int count = 0;
 		try {
-	         String connURL = "jdbc:mysql://localhost/db1?user=root&password=Devious1211&serverTimezone=UTC";
-	         Connection conn = DriverManager.getConnection(connURL); 
+
+	         // String connURL = "jdbc:mysql://localhost/jad?user=root&password=Devious1211&serverTimezone=UTC";
+	           String connURL = "jdbc:mysql://localhost:3306/jad?user=root&password=khyelerk12KL&serverTimezone=UTC";
+			
+			Connection conn = DriverManager.getConnection(connURL); 
 	         
 	         String insertStr = "UPDATE user SET name = ?, email = ?, pfp = ?, phoneNo = ? WHERE userId = ?";
 		 	PreparedStatement pstmt = conn.prepareStatement(insertStr);
 		 	pstmt.setString(1, user.getName());
 		 	pstmt.setString(2, user.getEmail());
 		 	pstmt.setString(3, user.getPfp());
-		 	pstmt.setInt(4, user.getPhoneNo());
+		 	pstmt.setString(4, user.getPhoneNo());
 	         pstmt.setInt(5, user.getUserId());
 
 	         count = pstmt.executeUpdate();

@@ -8,7 +8,7 @@ public class UserDetails {
 	private String pfp;
 	private String role;
 	private String address;
-	private int phoneNo;
+	private String phoneNo;
 	
 	// Constructor
 	public UserDetails() {
@@ -46,10 +46,10 @@ public class UserDetails {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	public int getPhoneNo() {
+	public String getPhoneNo() {
 		return phoneNo;
 	}
-	public void setPhoneNo(int phoneNo) {
+	public void setPhoneNo(String phoneNo) {
 		this.phoneNo = phoneNo;
 	}
 	public String getRole() {

@@ -36,7 +36,7 @@ public class GetUserDetails extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
+	
 		try {
 		String email = request.getParameter("email");
 		String pwd = request.getParameter("pwd");
