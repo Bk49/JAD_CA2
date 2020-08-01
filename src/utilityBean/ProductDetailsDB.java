@@ -176,6 +176,32 @@ public class ProductDetailsDB {
 		return products;
 	}
 	
+	// Select random product category pictures
+		public String randomProductCatPic(String Category) {
+			String imgPath ="";
+			try {
+		           Class.forName("com.mysql.jdbc.Driver");
+		         // String connURL = "jdbc:mysql://localhost/jad?user=root&password=Devious1211&serverTimezone=UTC";
+		           String connURL = "jdbc:mysql://localhost:3306/jad?user=root&password=khyelerk12KL&serverTimezone=UTC";
+
+		          Connection conn = DriverManager.getConnection(connURL); 
+		          String sqlStr = "SELECT imageLocation FROM jad.product WHERE  productCategory = ? order by rand() limit 1";
+	      		    		
+		    		PreparedStatement pstmt = conn.prepareStatement(sqlStr);
+		    		pstmt.setString(1, Category);
+		    		ResultSet rs = pstmt.executeQuery();	
+		    		
+		          while (rs.next()) {
+		              imgPath = rs.getString("imageLocation");
+
+		          }	        
+		          conn.close();
+		     } catch (Exception e) {
+		        System.err.println("Error :" + e);
+		     }
+			return imgPath;
+		}
+	
 	// Get 10 products according to its page
 			public ArrayList<ProductDetails> getProductsLimit(int pg) {
 				ProductDetails product;

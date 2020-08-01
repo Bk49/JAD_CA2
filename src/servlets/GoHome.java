@@ -61,6 +61,24 @@ public class GoHome extends HttpServlet {
 				System.out.print(e);
 			}
 		
+		// Select random pictures from respective categories to display
+		try {
+			
+			ProductDetailsDB productDB = new ProductDetailsDB();
+			ArrayList<String> categories = new ArrayList<String>();
+			ArrayList<String> categoriesIMG = new ArrayList<String>();
+
+			categories = productDB.getProductCategories();
+			
+			for (String category : categories) {    
+				categoriesIMG.add(productDB.randomProductCatPic(category));
+			}
+			request.setAttribute("randomProductCatPic", categoriesIMG);
+
+			}catch(Exception e){
+				System.out.print(e);
+			}
+		
 		// Forward to Home Page
 		RequestDispatcher rd = request.getRequestDispatcher("CA1/Home.jsp");
 		rd.forward(request, response);
