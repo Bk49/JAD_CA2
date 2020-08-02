@@ -20,10 +20,20 @@ body {
 	
 }
 
+.card-img-top {
+	height: 180px;
+	width:auto;	
+	display:block;
+}
+
 .card {
 	border: 0px !important;
-					    background-color: rgb(35,38,47)!important;
+    background-color: rgb(34,38,48); 
 	
+}
+
+.card-body {
+    min-height: 150px!important;
 }
 
 .margin{

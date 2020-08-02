@@ -10,7 +10,7 @@
 <meta charset="ISO-8859-1">
 <title>Home</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-<link rel="stylesheet" type="text/css" href="./css/Home.css?v=1">
+<link rel="stylesheet" type="text/css" href="./css/Home.css?v=2">
 <link rel="stylesheet" type="text/css" href="./css/footer.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -40,6 +40,7 @@ for (String category : categories) {
 }
 
 }catch(Exception e){
+	System.out.print("it works");
 	RequestDispatcher rd = request.getRequestDispatcher("../GoHome");
 	rd.forward(request, response);
 	}
@@ -61,12 +62,12 @@ for (String category : categories) {
 	        String pfp = user.getPfp();
 	        out.print("<a href='nav-link dropdown-toggle ' style='margin:0px' href='#' id='navbarDropdown' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'><img src='."+pfp+"' alt='userPfp' width=\"auto\" height=\"60px\"></a>");
 	        out.print("<div class='dropdown-menu' aria-labelledby='navbarDropdown'>" +
-	      "<a class='dropdown-item' href='../CA2/GoProfilePage'>Profile</a>" +
+	      "<a class='dropdown-item' href='../GoProfilePage'>Profile</a>" +
 	"<div class='dropdown-divider'></div>" +
 	   "<a class='dropdown-item' href='./logout.jsp'>Log Out</a>" +
 	 "</div>");
 	}else{
-		out.print("<a class=\"nav-link\" href='./Login.jsp'>LOGIN i</a>");
+		out.print("<a class=\"nav-link\" href='../GetUserDetails'>LOGIN</a>");
 	}
 %>
 
@@ -139,9 +140,9 @@ i++;
         "<div class=\"col mb-4\">" +
           "<div class=\"card cardProduct \">" +
 		      "<a href='../GoProductDetail?productId="+product.getProductId()+"'>"+
-                "<img src='."+product.getImageLocation()+"' class=\"card-img-top\" alt=\"...\">" +
-            "<div class=\"card-body\">" +
-                "<h5 class=\"card-title\">"+product.getProductName()+"</h5>" +
+                "<img src='."+product.getImageLocation()+"' class=\"card-img-top card-all-cat mx-auto\" alt=\"random products\">" +
+            "<div class=\"card-body card-body-random-products\">" +
+                "<h5 class=\"card-title \">"+product.getProductName()+"</h5>" +
                 "<p class=\"card-text\">"+String.format("%.2f", product.getCostPrice())+"</p>" +
     		  "</a>" +
             "</div>"+
@@ -151,7 +152,6 @@ i++;
         out.print("</div>");
         out.print("</div>");
 %>
-<%@ include file = "footer.jsp" %>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>

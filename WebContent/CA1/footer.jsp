@@ -26,7 +26,7 @@
           <div class="col-xs-6 col-md-3">
             <h6>Quick Links</h6>
             <ul class="footer-links">
-              <li><a href="./GoHome">Home</a></li>
+              <li><a href="./CA1/Home.jsp">Home</a></li>
               <li><a href="./GoProductListing">All Products</a></li>
               <li><a href="./GoProductListing">Categories</a></li>
             </ul>

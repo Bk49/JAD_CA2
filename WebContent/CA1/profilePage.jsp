@@ -27,7 +27,7 @@
 		  <div class="collapse navbar-collapse" id="navbarSupportedContent">
   		  <ul class="navbar-nav mr-auto">
     		  <li class="nav-item active">
-    		    <a class="nav-link" href="./GoHome">Home <span class="sr-only">(current)</span></a>
+    		    <a class="nav-link" href="./CA1/Home.jsp">Home <span class="sr-only">(current)</span></a>
     		  </li>
     		  <li class="nav-item dropdown">
     		    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -40,16 +40,14 @@ ArrayList<String> categories = (ArrayList<String>)request.getAttribute("productC
 
 for (String category : categories) {    
     // Style this line of code!
-   out.print("<a href='./GoProductListing?category="+category+"' class='dropdown-item'>"+category.toUpperCase()+"</a><br>");
+    out.print("<a href='../CA2/GoProductListing?category="+category+"' class='dropdown-item'>"+category.toUpperCase()+"</a><br>");
 }
 
 }catch(Exception e){
-	System.out.print(e);
-	//RequestDispatcher rd = request.getRequestDispatcher("../GoHome");
-	//rd.forward(request, response);
+	RequestDispatcher rd = request.getRequestDispatcher("./Home.jsp");
+	rd.forward(request, response);
 	}
-
-%>
+%>	
     		 </div>
   		    </li>
  		   </ul>
