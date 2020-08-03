@@ -9,19 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import utilityBean.DiscountDetailsDB;
+import utilityBean.UserDetailsDB;
+import valueBean.UserDetails;
 
 /**
- * Servlet implementation class DeleteDiscount
+ * Servlet implementation class GoEditUser
  */
-@WebServlet("/DeleteDiscount")
-public class DeleteDiscount extends HttpServlet {
+@WebServlet("/GoEditUser")
+public class GoEditUser extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DeleteDiscount() {
+    public GoEditUser() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,24 +31,22 @@ public class DeleteDiscount extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		int userId = Integer.parseInt(request.getParameter("userId"));
 		
-		// Getting the discountId
-		int discountId = Integer.parseInt(request.getParameter("discountId"));
-
-		// Accessing the database to get discount
 		try {
-			DiscountDetailsDB discountDB = new DiscountDetailsDB();
-			int count = discountDB.deleteDiscount(discountId);
-			System.out.println(count + " number of lines has been updated!");
+			UserDetailsDB userDB = new UserDetailsDB();
+			UserDetails user =  userDB.getUserDetailsById(userId);
 			
-			}catch(Exception e){
-				System.out.print(e);
-			}
+			request.setAttribute("user", user);
+		}catch(Exception e) {
+			System.out.print(e);
+		}	
 		
-		// Send Redirect to discountTable.jsp
-		response.sendRedirect("./GoDiscountTable");
-		}
+		// Forward to editUser Page
+		RequestDispatcher rd = request.getRequestDispatcher("CA1/editUser.jsp");
+		rd.forward(request, response);
+		
+	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

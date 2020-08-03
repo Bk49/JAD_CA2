@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
        <%@page import="java.sql.*" %>
-       <%@page import="valueBean.ProductDetails" %>
+       <%@page import="valueBean.UserDetails" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,52 +12,57 @@
 </head>
 <body>
 <%
-
+UserDetails user = (UserDetails)request.getAttribute("user");
+int userId = user.getUserId();
+String name = user.getName();
+String pwd = user.getPwd();
+String email = user.getEmail();
+String role = user.getRole();
+String pfp = user.getPfp();
+String address = user.getAddress();
+String phoneNo = user.getPhoneNo();
 %>
 <div class="d-flex justify-content-center text-center">
 <h2 class="text-warning">Edit User</h2>
-<form action="">
-	<input type="hidden" name="userId" value=""/>
+<form action="./EditUser">
+	<input type="hidden" name="userId" value="<%= userId %>"/>
 
     <div class="form-group">
       <label>User Name</label><br>
-		<input type="text" name="name" value="" required/>
+		<input type="text" name="name" value="<%= name %>" required/>
     </div>
   <div class="form-group">
     <label>Password</label><br>
-		<input  type="text" name="password" value="" required/>
+		<input  type="text" name="pwd" value="<%= pwd %>" required/>
   </div>
   
   <div class="form-group">
     <label>Email</label><br>
-		<input  type="text" name="email" value="" required/>
+		<input  type="text" name="email" value="<%= email %>" required/>
   </div>
   
   <div class="form-row">
     <div class="form-group col-md-6">
       <label>Role</label><br>
-      <input type="text" name="role"  value="" required/>
+      <input type="text" name="role"  value="<%= role %>" required/>
     </div>
      <div class="form-group col-md-6">
       <label>Profile Picture Path</label><br>
-      <input type="text" name="pfp"  value="" required/>
+      <input type="text" name="pfp"  value="<%= pfp %>"/>
     </div>
    
   </div>
   
   <div class="form-group">
     <label>Address</label><br>
-		<input  type="text" name="address" value="" required/>
+		<input  type="text" name="address" value="<%= address %>"/>
   </div>
   
     <div class="form-group">
     <label>Phone Number</label><br>
-		<input  type="text" name="phoneNo" value="" required/>
+		<input  type="text" name="phoneNo" value="<%= phoneNo %>"/>
   </div>
   
-
-
-    
 	<input type="submit" class="submit bg-warning" value="EDIT USER"/>
 </form>
 </div>

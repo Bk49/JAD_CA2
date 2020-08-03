@@ -43,10 +43,9 @@ public class DeleteProduct extends HttpServlet {
 					}catch(Exception e){
 						System.out.print(e);
 					}
-				
-				// Forwards to discountTable.jsp
-				RequestDispatcher rd = request.getRequestDispatcher("/GoProductTable");
-				rd.forward(request, response);
+
+				// Send Redirect to productTable.jsp
+				response.sendRedirect("./GoProductTable");
 	}
 
 	/**

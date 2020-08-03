@@ -15,8 +15,8 @@
 
 %>
 <div class="d-flex justify-content-center text-center">
-<h2 class="text-warning">Edit User</h2>
-<form action="" method="post">
+<h2 class="text-warning">Add User</h2>
+<form action="../AddUser" method="post">
 
     <div class="form-group">
       <label>User Name</label><br>
@@ -24,7 +24,7 @@
     </div>
   <div class="form-group">
     <label>Password</label><br>
-		<input  type="text" name="password" value="" required/>
+		<input  type="text" name="pwd" value="" required/>
   </div>
   
   <div class="form-group">
@@ -39,7 +39,7 @@
     </div>
      <div class="form-group col-md-6">
       <label>Profile Picture Path</label><br>
-      <input type="text" name="pfp"  value="" required/>
+      <input type="text" name="pfp"  value=""/>
     </div>
    
   </div>
@@ -51,12 +51,9 @@
   
     <div class="form-group">
     <label>Phone Number</label><br>
-		<input  type="text" name="phoneNo" value="" required/>
+		<input  type="text" name="phoneNo" value=""/>
   </div>
-  
-
-
-    
+ 
 	<input type="submit" class="submit bg-warning" value="ADD USER"/>
 </form>
 </div>

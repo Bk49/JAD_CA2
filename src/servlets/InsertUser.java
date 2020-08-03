@@ -64,14 +64,14 @@ public class InsertUser extends HttpServlet {
 		
 		HttpSession session=request.getSession(); 
 		session.setAttribute("user", user);
-		
-		RequestDispatcher rd = request.getRequestDispatcher("CA1/Home.jsp");
-		rd.forward(request, response);
 		}catch(Exception e){
 			System.out.print(e);
 			RequestDispatcher rd = request.getRequestDispatcher("CA1/CustomerRegistration.jsp?errorCode=invalidEmail");
-			rd.forward(request, response);
+			rd.forward(request, response);	
 		}
+		
+		// Send Redirect to Home.jsp
+		response.sendRedirect("./GoHome");
 	}
 
 	/**

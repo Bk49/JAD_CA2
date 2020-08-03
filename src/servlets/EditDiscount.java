@@ -65,9 +65,9 @@ public class EditDiscount extends HttpServlet {
 					System.out.print(e);
 				}
 			
-			// Forwards to discountTable.jsp
-			RequestDispatcher rd = request.getRequestDispatcher("/GoDiscountTable");
-			rd.forward(request, response);	}
+			// Send Redirect to discountTable.jsp
+			response.sendRedirect("./GoDiscountTable");
+			}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

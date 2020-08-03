@@ -48,13 +48,13 @@ public class AddDiscount extends HttpServlet {
 			
 			int count = discountDB.insertDiscount(discount);
 			
-			System.out.print(count+" row affected");
-			
-			RequestDispatcher rd = request.getRequestDispatcher("/GoDiscountTable");
-			rd.forward(request, response);
+			System.out.print(count+" row affected");			
 			}catch(Exception e){
 				System.out.print(e);
 			}
+		
+		// Send Redirect to discountTable.jsp
+		response.sendRedirect("./GoDiscountTable");
 	}
 
 	/**

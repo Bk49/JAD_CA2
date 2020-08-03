@@ -69,9 +69,8 @@ public class EditProduct extends HttpServlet {
 							System.out.print(e);
 						}
 					
-					// Forwards to discountTable.jsp
-					RequestDispatcher rd = request.getRequestDispatcher("/GoProductTable");
-					rd.forward(request, response);
+					// Send Redirect to productTable.jsp
+					response.sendRedirect("./GoProductTable");
 	}
 
 	/**

@@ -1,27 +1,25 @@
 package servlets;
 
 import java.io.IOException;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import utilityBean.DiscountDetailsDB;
+import utilityBean.UserDetailsDB;
 
 /**
- * Servlet implementation class DeleteDiscount
+ * Servlet implementation class DeleteUser
  */
-@WebServlet("/DeleteDiscount")
-public class DeleteDiscount extends HttpServlet {
+@WebServlet("/DeleteUser")
+public class DeleteUser extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DeleteDiscount() {
+    public DeleteUser() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,24 +28,22 @@ public class DeleteDiscount extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		
-		// Getting the discountId
-		int discountId = Integer.parseInt(request.getParameter("discountId"));
+		// Getting the userId
+		int userId = Integer.parseInt(request.getParameter("userId"));
 
-		// Accessing the database to get discount
+		// Accessing the database to get user
 		try {
-			DiscountDetailsDB discountDB = new DiscountDetailsDB();
-			int count = discountDB.deleteDiscount(discountId);
+			UserDetailsDB userDB = new UserDetailsDB();
+			int count = userDB.deleteUser(userId);
 			System.out.println(count + " number of lines has been updated!");
 			
 			}catch(Exception e){
 				System.out.print(e);
 			}
-		
-		// Send Redirect to discountTable.jsp
-		response.sendRedirect("./GoDiscountTable");
-		}
+
+		// Send Redirect to userTable.jsp
+		response.sendRedirect("./GoUserTable");
+	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

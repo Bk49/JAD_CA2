@@ -81,12 +81,12 @@ public class AddProduct extends HttpServlet {
 			int count = productDB.insertProduct(product);
 			
 			System.out.print(count+" row affected");
-			
-			RequestDispatcher rd = request.getRequestDispatcher("/GoProductTable");
-			rd.forward(request, response);
 			}catch(Exception e){
 				System.out.print(e);
 			}
+		
+		// Send Redirect to productTable.jsp
+		response.sendRedirect("./GoProductTable");
 	}
 
 	/**

@@ -1,6 +1,7 @@
 package servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,19 +10,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import utilityBean.DiscountDetailsDB;
+import utilityBean.UserDetailsDB;
+import valueBean.UserDetails;
 
 /**
- * Servlet implementation class DeleteDiscount
+ * Servlet implementation class GoUserTable
  */
-@WebServlet("/DeleteDiscount")
-public class DeleteDiscount extends HttpServlet {
+@WebServlet("/GoUserTable")
+public class GoUserTable extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DeleteDiscount() {
+    public GoUserTable() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,24 +32,37 @@ public class DeleteDiscount extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		int pg;
+		pg = (request.getParameter("pg") != null) ? Integer.parseInt(request.getParameter("pg")) : 1;
+		request.setAttribute("pg", pg);
 		
-		// Getting the discountId
-		int discountId = Integer.parseInt(request.getParameter("discountId"));
-
-		// Accessing the database to get discount
+		// Get all the users limit 10
 		try {
-			DiscountDetailsDB discountDB = new DiscountDetailsDB();
-			int count = discountDB.deleteDiscount(discountId);
-			System.out.println(count + " number of lines has been updated!");
+			UserDetailsDB userDB = new UserDetailsDB();
+			ArrayList<UserDetails> users = new ArrayList<UserDetails>();
+			
+			users = userDB.getUsersLimit(pg);
+			request.setAttribute("users", users);
 			
 			}catch(Exception e){
 				System.out.print(e);
-			}
-		
-		// Send Redirect to discountTable.jsp
-		response.sendRedirect("./GoDiscountTable");
+			}		
+	
+		// Get the number of users
+		try {
+			UserDetailsDB userDB = new UserDetailsDB();
+			double count = 0;
+			count = userDB.getCount();
+			
+			request.setAttribute("userCount", count);
+		}catch(Exception e) {
+			System.out.print(e);
 		}
+		
+		// Forward to Home Page
+		RequestDispatcher rd = request.getRequestDispatcher("CA1/userTable.jsp");
+		rd.forward(request, response);
+	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

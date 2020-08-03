@@ -2,7 +2,7 @@
     pageEncoding="ISO-8859-1"%>
     <%@page import="java.sql.*,java.lang.*" %>
     <%@page import="java.util.ArrayList" %>    
-    <%@page import="valueBean.ProductDetails" %> 
+    <%@page import="valueBean.UserDetails" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,13 +29,12 @@
     		    <a class="nav-link" href="../CA2/GoProductTable">Edit Products<span class="sr-only">(current)</span></a>
     		  </li>
     		  <li class="nav-item active">
-    		    <a class="nav-link" href="">Edit Users<span class="sr-only">(current)</span></a>
+    		    <a class="nav-link" href="../CA2/GoUserTable">Edit Users<span class="sr-only">(current)</span></a>
     		  </li>
     		  <li class="nav-item active">
     		    <a class="nav-link" href="">Orders<span class="sr-only">(current)</span></a>
     		  </li>
  		   </ul>
-   		 
   </div>
 </nav>
 
@@ -43,7 +42,7 @@
 <h1>Users in the database</h1>
 
 <!-- This button will allow the user to add new products into the database -->
-<a class='btn btn-warning' href='#'>Add new user</a><br><br>
+<a class='btn btn-warning' href='./CA1/addUser.jsp'>Add new user</a><br><br>
 
 <table class="table table-striped table-hover" > <!-- All products will be pushed into this table -->
 <tr>
@@ -63,20 +62,20 @@
 int pg= (int)request.getAttribute("pg");
 int count = pg*10-10+1;
 
-ArrayList<ProductDetails> products = (ArrayList<ProductDetails>)request.getAttribute("products");
+ArrayList<UserDetails> users = (ArrayList<UserDetails>)request.getAttribute("users");
 
-	for(ProductDetails product: products){
+	for(UserDetails user: users){
        out.print("<tr>"+
-  //     "<td>"+count+"</td>"+
-  //     "<td>"+user.()+"</td>"+
- //      "<td>"+user.()+"</td>"+
-  //     "<td>"+user.()+"</td>"+
-   //    "<td>"+user.()+"</td>"+
-  //     "<td>"+user.()+"</td>"+
-  //     "<td>"+user.()+"</td>"+
-   //    "<td>"+user.()+"</td>"+
-       "<td><a class='btn btn-warning' href=''\">Edit</button></td>"+
-       "<td><a class='btn btn-warning' href=''\">Delete</button></td>"+
+      "<td>"+count+"</td>"+
+      "<td>"+user.getName()+"</td>"+
+       "<td>"+user.getPwd()+"</td>"+
+       "<td>"+user.getEmail()+"</td>"+
+      "<td>"+user.getRole()+"</td>"+
+       "<td>"+user.getPfp()+"</td>"+
+       "<td>"+user.getAddress()+"</td>"+
+     "<td>"+user.getPhoneNo()+"</td>"+
+       "<td><a class='btn btn-warning' href='./GoEditUser?userId="+user.getUserId()+"'>Edit</button></td>"+
+       "<td><a class='btn btn-warning' href='./GoDeleteUser?userId="+user.getUserId()+"'>Delete</button></td>"+
        "</tr>");
        
        count++;
@@ -88,13 +87,13 @@ ArrayList<ProductDetails> products = (ArrayList<ProductDetails>)request.getAttri
 <!-- Use this button to access to the next 10 rows in the second page -->
 <div class='pagination'>
 <%
-	double noOfProducts;
-	noOfProducts = (double)request.getAttribute("productCount");
+	double noOfUsers;
+	noOfUsers = (double)request.getAttribute("userCount");
    
-        double Pages = (double)Math.ceil((double) noOfProducts/(double)10.0);
+        double Pages = (double)Math.ceil((double) noOfUsers/(double)10.0);
 
         for(int i = 0 ; i < Pages; i++)
-     out.print("<a  class='active' href='GoProductTable?pg="+(i+1)+"'>"+ (i+1) +"</a>");	          
+     out.print("<a  class='active' href='GoUserTable?pg="+(i+1)+"'>"+ (i+1) +"</a>");	          
 		          
 %>
 </div>
