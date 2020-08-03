@@ -12,8 +12,7 @@ public class ProductDetailsDB {
 		ProductDetails product = new ProductDetails();
 		try {
 	           Class.forName("com.mysql.jdbc.Driver");
-	         // String connURL = "jdbc:mysql://localhost/jad?user=root&password=Devious1211&serverTimezone=UTC";
-	           String connURL = "jdbc:mysql://localhost:3306/jad?user=root&password=khyelerk12KL&serverTimezone=UTC";
+		         String connURL = "jdbc:mysql://us-cdbr-east-02.cleardb.com:3306/heroku_ec924e2e031aaa6?user=bd75cdad57c09f&password=75b47259&serverTimezone=UTC";
 
 	          Connection conn = DriverManager.getConnection(connURL); 
 	          String sqlStr = "SELECT * FROM product WHERE productId = ?";
@@ -45,8 +44,7 @@ public class ProductDetailsDB {
 		int count = 0;
 		try {
 	           Class.forName("com.mysql.jdbc.Driver");
-		         // String connURL = "jdbc:mysql://localhost/jad?user=root&password=Devious1211&serverTimezone=UTC";
-	           String connURL = "jdbc:mysql://localhost:3306/jad?user=root&password=khyelerk12KL&serverTimezone=UTC";
+		         String connURL = "jdbc:mysql://us-cdbr-east-02.cleardb.com:3306/heroku_ec924e2e031aaa6?user=bd75cdad57c09f&password=75b47259&serverTimezone=UTC";
 	           
 	         Connection conn = DriverManager.getConnection(connURL); 
 	         
@@ -74,8 +72,7 @@ public class ProductDetailsDB {
 	public int deleteProduct(int productId) {
 		int count = 0;
 		try {
-	         // String connURL = "jdbc:mysql://localhost/jad?user=root&password=Devious1211&serverTimezone=UTC";
-	           String connURL = "jdbc:mysql://localhost:3306/jad?user=root&password=khyelerk12KL&serverTimezone=UTC";	         
+	         String connURL = "jdbc:mysql://us-cdbr-east-02.cleardb.com:3306/heroku_ec924e2e031aaa6?user=bd75cdad57c09f&password=75b47259&serverTimezone=UTC";         
 	         
 	         
 	         Connection conn = DriverManager.getConnection(connURL); 
@@ -96,9 +93,7 @@ public class ProductDetailsDB {
 	public int updateProduct(ProductDetails product) {
 		int count = 0;
 		try {
-	         // String connURL = "jdbc:mysql://localhost/jad?user=root&password=Devious1211&serverTimezone=UTC";
-	           String connURL = "jdbc:mysql://localhost:3306/jad?user=root&password=khyelerk12KL&serverTimezone=UTC";
-
+	         String connURL = "jdbc:mysql://us-cdbr-east-02.cleardb.com:3306/heroku_ec924e2e031aaa6?user=bd75cdad57c09f&password=75b47259&serverTimezone=UTC";
 			
 			Connection conn = DriverManager.getConnection(connURL); 
 	         
@@ -128,8 +123,7 @@ public class ProductDetailsDB {
 		ArrayList<String> categories = new ArrayList<String>();
 		try {
 	           Class.forName("com.mysql.jdbc.Driver");
-	          //String connURL = "jdbc:mysql://localhost/jad?user=root&password=Devious1211&serverTimezone=UTC";
-	           String connURL = "jdbc:mysql://localhost:3306/jad?user=root&password=khyelerk12KL&serverTimezone=UTC";
+		         String connURL = "jdbc:mysql://us-cdbr-east-02.cleardb.com:3306/heroku_ec924e2e031aaa6?user=bd75cdad57c09f&password=75b47259&serverTimezone=UTC";
 
 	          Connection conn = DriverManager.getConnection(connURL); 
 	          String sqlStr = "SELECT DISTINCT productCategory FROM product";
@@ -153,11 +147,10 @@ public class ProductDetailsDB {
 		ProductDetails product;
 		try {
 	           Class.forName("com.mysql.jdbc.Driver");
-	         // String connURL = "jdbc:mysql://localhost/jad?user=root&password=Devious1211&serverTimezone=UTC";
-	           String connURL = "jdbc:mysql://localhost:3306/jad?user=root&password=khyelerk12KL&serverTimezone=UTC";
+		         String connURL = "jdbc:mysql://us-cdbr-east-02.cleardb.com:3306/heroku_ec924e2e031aaa6?user=bd75cdad57c09f&password=75b47259&serverTimezone=UTC";
 
 	          Connection conn = DriverManager.getConnection(connURL); 
-	          String sqlStr = "SELECT productId,productName, costPrice, imageLocation FROM jad.product ORDER BY RAND() LIMIT 10";
+	          String sqlStr = "SELECT productId,productName, costPrice, imageLocation FROM product ORDER BY RAND() LIMIT 10";
 
 	    		PreparedStatement pstmt = conn.prepareStatement(sqlStr);
 	    		ResultSet rs = pstmt.executeQuery();	          
@@ -181,11 +174,10 @@ public class ProductDetailsDB {
 			String imgPath ="";
 			try {
 		           Class.forName("com.mysql.jdbc.Driver");
-		         // String connURL = "jdbc:mysql://localhost/jad?user=root&password=Devious1211&serverTimezone=UTC";
-		           String connURL = "jdbc:mysql://localhost:3306/jad?user=root&password=khyelerk12KL&serverTimezone=UTC";
+			         String connURL = "jdbc:mysql://us-cdbr-east-02.cleardb.com:3306/heroku_ec924e2e031aaa6?user=bd75cdad57c09f&password=75b47259&serverTimezone=UTC";
 
 		          Connection conn = DriverManager.getConnection(connURL); 
-		          String sqlStr = "SELECT imageLocation FROM jad.product WHERE  productCategory = ? order by rand() limit 1";
+		          String sqlStr = "SELECT imageLocation FROM product WHERE  productCategory = ? order by rand() limit 1";
 	      		    		
 		    		PreparedStatement pstmt = conn.prepareStatement(sqlStr);
 		    		pstmt.setString(1, Category);
@@ -210,8 +202,8 @@ public class ProductDetailsDB {
 				int startRow = pg*10-10;
 				try {
 			           Class.forName("com.mysql.jdbc.Driver");
-			        //  String connURL = "jdbc:mysql://localhost/jad?user=root&password=Devious1211&serverTimezone=UTC";
-			           String connURL = "jdbc:mysql://localhost:3306/jad?user=root&password=khyelerk12KL&serverTimezone=UTC";
+				         String connURL = "jdbc:mysql://us-cdbr-east-02.cleardb.com:3306/heroku_ec924e2e031aaa6?user=bd75cdad57c09f&password=75b47259&serverTimezone=UTC";
+
 
 			          Connection conn = DriverManager.getConnection(connURL); 
 			          String sqlStr = "SELECT productId, productName, costPrice, retailPrice, stockQuantity, productCategory FROM product LIMIT ?,10";
@@ -242,8 +234,7 @@ public class ProductDetailsDB {
 				double count = 0;
 				try {
 			           Class.forName("com.mysql.jdbc.Driver");
-			        //  String connURL = "jdbc:mysql://localhost/jad?user=root&password=Devious1211&serverTimezone=UTC";
-			           String connURL = "jdbc:mysql://localhost:3306/jad?user=root&password=khyelerk12KL&serverTimezone=UTC";
+				         String connURL = "jdbc:mysql://us-cdbr-east-02.cleardb.com:3306/heroku_ec924e2e031aaa6?user=bd75cdad57c09f&password=75b47259&serverTimezone=UTC";
 
 			          Connection conn = DriverManager.getConnection(connURL); 
 			          String sqlStr = "SELECT COUNT(*) count FROM product";
@@ -269,8 +260,7 @@ public class ProductDetailsDB {
 
 				try {
 			           Class.forName("com.mysql.jdbc.Driver");
-			         // String connURL = "jdbc:mysql://localhost/jad?user=root&password=Devious1211&serverTimezone=UTC";
-			           String connURL = "jdbc:mysql://localhost:3306/jad?user=root&password=khyelerk12KL&serverTimezone=UTC";
+				         String connURL = "jdbc:mysql://us-cdbr-east-02.cleardb.com:3306/heroku_ec924e2e031aaa6?user=bd75cdad57c09f&password=75b47259&serverTimezone=UTC";
 
 			          Connection conn = DriverManager.getConnection(connURL); 
 			          String sqlStr = "SELECT productId, productName, briefDescription, costPrice, retailPrice, imageLocation FROM product WHERE productCategory LIKE ? LIMIT "+startRow+",9";         
@@ -301,8 +291,7 @@ public class ProductDetailsDB {
 				double noOfProducts = 0;
 				try {
 			           Class.forName("com.mysql.jdbc.Driver");
-			        //  String connURL = "jdbc:mysql://localhost/jad?user=root&password=Devious1211&serverTimezone=UTC";
-			           String connURL = "jdbc:mysql://localhost:3306/jad?user=root&password=khyelerk12KL&serverTimezone=UTC";
+				         String connURL = "jdbc:mysql://us-cdbr-east-02.cleardb.com:3306/heroku_ec924e2e031aaa6?user=bd75cdad57c09f&password=75b47259&serverTimezone=UTC";
 
 			          Connection conn = DriverManager.getConnection(connURL); 
 			          String sqlStr = "SELECT COUNT(*) count FROM product WHERE productCategory LIKE ? "; 

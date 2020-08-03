@@ -8,8 +8,7 @@ public class UserDetailsDB {
         UserDetails user = new UserDetails();
 		try {
 	           Class.forName("com.mysql.jdbc.Driver");
-	          //String connURL = "jdbc:mysql://localhost/jad?user=root&password=Devious1211&serverTimezone=UTC";
-	           String connURL = "jdbc:mysql://localhost:3306/jad?user=root&password=khyelerk12KL&serverTimezone=UTC";
+		         String connURL = "jdbc:mysql://us-cdbr-east-02.cleardb.com:3306/heroku_ec924e2e031aaa6?user=bd75cdad57c09f&password=75b47259&serverTimezone=UTC";
 
 	          Connection conn = DriverManager.getConnection(connURL); 
 	          String sqlStr = "SELECT userId, name, pfp, address, phoneNo, role FROM user WHERE email = ? AND pwd = ?";
@@ -41,9 +40,7 @@ public class UserDetailsDB {
 	public int insertUser(UserDetails user) {
 		int count = 0;
 		try {
-
-	         // String connURL = "jdbc:mysql://localhost/jad?user=root&password=Devious1211&serverTimezone=UTC";
-	           String connURL = "jdbc:mysql://localhost:3306/jad?user=root&password=khyelerk12KL&serverTimezone=UTC";
+	         String connURL = "jdbc:mysql://us-cdbr-east-02.cleardb.com:3306/heroku_ec924e2e031aaa6?user=bd75cdad57c09f&password=75b47259&serverTimezone=UTC";
 			
 			Connection conn = DriverManager.getConnection(connURL); 
 	         
@@ -70,9 +67,7 @@ public class UserDetailsDB {
 	public int deleteUser(int userId) {
 		int count = 0;
 		try {
-	         // String connURL = "jdbc:mysql://localhost/jad?user=root&password=Devious1211&serverTimezone=UTC";
-	           String connURL = "jdbc:mysql://localhost:3306/jad?user=root&password=khyelerk12KL&serverTimezone=UTC";
-			
+	         String connURL = "jdbc:mysql://us-cdbr-east-02.cleardb.com:3306/heroku_ec924e2e031aaa6?user=bd75cdad57c09f&password=75b47259&serverTimezone=UTC";
 			
 			Connection conn = DriverManager.getConnection(connURL); 
 	         
@@ -92,10 +87,8 @@ public class UserDetailsDB {
 	public int updateUser(UserDetails user) {
 		int count = 0;
 		try {
+	         String connURL = "jdbc:mysql://us-cdbr-east-02.cleardb.com:3306/heroku_ec924e2e031aaa6?user=bd75cdad57c09f&password=75b47259&serverTimezone=UTC";
 
-	         // String connURL = "jdbc:mysql://localhost/jad?user=root&password=Devious1211&serverTimezone=UTC";
-	           String connURL = "jdbc:mysql://localhost:3306/jad?user=root&password=khyelerk12KL&serverTimezone=UTC";
-			
 			Connection conn = DriverManager.getConnection(connURL); 
 	         
 	         String insertStr = "UPDATE user SET name = ?, email = ?, pfp = ?, phoneNo = ? WHERE userId = ?";

@@ -11,8 +11,7 @@ public class DiscountDetailsDB {
 			DiscountDetails discount = new DiscountDetails();
 			try {
 		           Class.forName("com.mysql.jdbc.Driver");
-		         // String connURL = "jdbc:mysql://localhost/jad?user=root&password=Devious1211&serverTimezone=UTC";
-		           String connURL = "jdbc:mysql://localhost:3306/jad?user=root&password=khyelerk12KL&serverTimezone=UTC";
+			         String connURL = "jdbc:mysql://us-cdbr-east-02.cleardb.com:3306/heroku_ec924e2e031aaa6?user=bd75cdad57c09f&password=75b47259&serverTimezone=UTC";
 
 		          Connection conn = DriverManager.getConnection(connURL); 
 		          String sqlStr = "SELECT * FROM discount WHERE discountId = ?";
@@ -40,11 +39,8 @@ public class DiscountDetailsDB {
 			int count = 0;
 			try {
 		           Class.forName("com.mysql.jdbc.Driver");
-
-			         // String connURL = "jdbc:mysql://localhost/jad?user=root&password=Devious1211&serverTimezone=UTC";
-		           String connURL = "jdbc:mysql://localhost:3306/jad?user=root&password=khyelerk12KL&serverTimezone=UTC";
-		           
-		           
+			         String connURL = "jdbc:mysql://us-cdbr-east-02.cleardb.com:3306/heroku_ec924e2e031aaa6?user=bd75cdad57c09f&password=75b47259&serverTimezone=UTC";
+			         
 		           Connection conn = DriverManager.getConnection(connURL); 
 		         
 		         String insertStr = "INSERT INTO discount(discountCode, discountValue, discountType, usageLimit) VALUES (?,?,?,?) ";
@@ -66,11 +62,8 @@ public class DiscountDetailsDB {
 		public int deleteDiscount(int discountId) {
 			int count = 0;
 			try {
-
-		         // String connURL = "jdbc:mysql://localhost/jad?user=root&password=Devious1211&serverTimezone=UTC";
-		           String connURL = "jdbc:mysql://localhost:3306/jad?user=root&password=khyelerk12KL&serverTimezone=UTC";
-				
-				
+		         String connURL = "jdbc:mysql://us-cdbr-east-02.cleardb.com:3306/heroku_ec924e2e031aaa6?user=bd75cdad57c09f&password=75b47259&serverTimezone=UTC";
+	
 				Connection conn = DriverManager.getConnection(connURL); 
 		         
 		         String deleteStr = "DELETE FROM discount WHERE discountId = ?";
@@ -90,11 +83,8 @@ public class DiscountDetailsDB {
 			int count = 0;
 			try {
 		           Class.forName("com.mysql.jdbc.Driver");
+			         String connURL = "jdbc:mysql://us-cdbr-east-02.cleardb.com:3306/heroku_ec924e2e031aaa6?user=bd75cdad57c09f&password=75b47259&serverTimezone=UTC";
 
-			         // String connURL = "jdbc:mysql://localhost/jad?user=root&password=Devious1211&serverTimezone=UTC";
-		           String connURL = "jdbc:mysql://localhost:3306/jad?user=root&password=khyelerk12KL&serverTimezone=UTC";
-		           
-		           
 		           Connection conn = DriverManager.getConnection(connURL); 
 		         
 		         String insertStr = "UPDATE discount SET discountCode = ?, discountValue = ?, discountType = ?, usageLimit = ?, usageCount = ? WHERE discountId = ?";
@@ -124,8 +114,7 @@ public class DiscountDetailsDB {
 			int startRow = pg*10-10;
 			try {
 		           Class.forName("com.mysql.jdbc.Driver");
-		         // String connURL = "jdbc:mysql://localhost/jad?user=root&password=Devious1211&serverTimezone=UTC";
-		           String connURL = "jdbc:mysql://localhost:3306/jad?user=root&password=khyelerk12KL&serverTimezone=UTC";
+			         String connURL = "jdbc:mysql://us-cdbr-east-02.cleardb.com:3306/heroku_ec924e2e031aaa6?user=bd75cdad57c09f&password=75b47259&serverTimezone=UTC";
 
 		          Connection conn = DriverManager.getConnection(connURL); 
 		          String sqlStr = "SELECT discountId, discountCode, discountValue, discountType, usageLimit, usageCount FROM discount LIMIT ? ,10";
@@ -156,8 +145,7 @@ public class DiscountDetailsDB {
 			double count = 0;
 			try {
 		           Class.forName("com.mysql.jdbc.Driver");
-		         // String connURL = "jdbc:mysql://localhost/jad?user=root&password=Devious1211&serverTimezone=UTC";
-		           String connURL = "jdbc:mysql://localhost:3306/jad?user=root&password=khyelerk12KL&serverTimezone=UTC";
+			         String connURL = "jdbc:mysql://us-cdbr-east-02.cleardb.com:3306/heroku_ec924e2e031aaa6?user=bd75cdad57c09f&password=75b47259&serverTimezone=UTC";
 
 		          Connection conn = DriverManager.getConnection(connURL); 
 		          String sqlStr = "SELECT COUNT(*) count FROM discount";
