@@ -25,6 +25,7 @@ body {
 	background-color:rgb(35,38,47);
 	border-radius: 8px;
 	height: auto;
+	display:block;
 }
 
 .width {

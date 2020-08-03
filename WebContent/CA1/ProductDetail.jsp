@@ -10,7 +10,7 @@
 <meta charset="ISO-8859-1">
 <title>Product Detail</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-<link rel="stylesheet" type="text/css" href="./CA1/css/productDetail.css">
+<link rel="stylesheet" type="text/css" href="./CA1/css/productDetail.css?v=1">
 <link rel="stylesheet" type="text/css" href="./CA1/css/footer.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -25,21 +25,27 @@
 		  <div class="collapse navbar-collapse" id="navbarSupportedContent">
   		  <ul class="navbar-nav mr-auto">
     		  <li class="nav-item active">
-    		    <a class="nav-link" href="./GoHome">Home <span class="sr-only">(current)</span></a>
+    		    <a class="nav-link" href="./CA1/Home.jsp">Home <span class="sr-only">(current)</span></a>
     		  </li>
     		  <li class="nav-item dropdown">
     		    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
    		       Categories
     		    </a>
    		     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-   		     <%
-ArrayList<String> categories = (ArrayList)request.getAttribute("productCategories");
-          for (String category : categories) {           
-              // Style this line of code!
-              out.print("<a href='./GoProductListing?category="+category+"' class='dropdown-item'>"+category.toUpperCase()+"</a><br>");
-          }
-        
-%>
+<%
+try{
+ArrayList<String> categories = (ArrayList<String>)request.getAttribute("productCategories");
+
+for (String category : categories) {    
+    // Style this line of code!
+    out.print("<a href='../CA2/GoProductListing?category="+category+"' class='dropdown-item'>"+category.toUpperCase()+"</a><br>");
+}
+
+}catch(Exception e){
+	RequestDispatcher rd = request.getRequestDispatcher("./Home.jsp");
+	rd.forward(request, response);
+	}
+%>	
     		 </div>
   		    </li>
  		   </ul>
@@ -68,25 +74,38 @@ out.print("<a class=\"nav-link\" href='./CA1/Login.jsp'>LOGIN</a>");
       	</ul>   
   </div>
 </nav>
+<br>
+<br>
+<div class="container justify-content-center ">
+<div class="row justify-content-center">
 <%
 ProductDetails product = (ProductDetails)request.getAttribute("product");
     		
-out.print("<div class=\"container \">");
-out.print("<div class=\"row \">");
 out.print(
-		"<div class=\"col-4 \">"+
+		"<div class=\"col-8 text-center\">"+
 		"<h2 class=\"text-warning\">"+product.getProductName()+"</h2>" +
-	    "<img src='."+product.getImageLocation()+"' class=\"productImg\" alt='productImage'>"+
+	    "<img src='./CA1"+product.getImageLocation()+"' class=\"productImg mx-auto width\" alt='productImage'>"+
 		"</div>" +
-	   	"<div class=\"col-8 \">" +
+	   	"<div class=\"col-4 text-left\">" +
+				"<p class=\"text-warning\">Brief Description:</p>"+
 		"<div class=\"text-white\">"+product.getBriefDescription()+"</div>"+
+				"<p class=\"text-warning\">Detailed Description:</p>"+
+
 		"<div class=\"text-white\">"+product.getDetailDescription()+"</div>"+
+				"<p class=\"text-warning\">Cost Price:</p>"+
+
 		"<div class=\"text-white\">"+String.format("%.2f", product.getCostPrice())+"</div>"+
+				"<p class=\"text-warning\">Retail Price:</p>"+
+
 		"<div class=\"text-white\">"+String.format("%.2f", product.getRetailPrice())+"</div>"+
+				"<p class=\"text-warning\">Product Category:</p>"+
+
 		"<div class=\"text-white\">"+product.getProductCategory()+"</div>" +
 		"</div>"
 		);
 %>
+</div>
+</div>
 
 <%@ include file = "footer.jsp" %>
 

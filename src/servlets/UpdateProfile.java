@@ -69,7 +69,7 @@ public class UpdateProfile extends HttpServlet {
 		session.setAttribute("user", user);
 		
 		// Forwards to profilePage.jsp
-		RequestDispatcher rd = request.getRequestDispatcher("GoHome");
+		RequestDispatcher rd = request.getRequestDispatcher("./CA1/Home.jsp");
 		rd.forward(request, response);
 	}
 

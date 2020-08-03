@@ -10,7 +10,7 @@
 <meta charset="ISO-8859-1">
 <title>All Products</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-<link rel="stylesheet" type="text/css" href="./CA1/css/ProductListing.css">
+<link rel="stylesheet" type="text/css" href="./CA1/css/ProductListing.css?v=2">
 <link rel="stylesheet" type="text/css" href="./CA1/css/footer.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -23,7 +23,7 @@
 		  <div class="collapse navbar-collapse" id="navbarSupportedContent">
   		  <ul class="navbar-nav mr-auto">
     		  <li class="nav-item active">
-    		    <a class="nav-link" href="../CA2/GoHome">Home <span class="sr-only">(current)</span></a>
+    		    <a class="nav-link" href="./CA1/Home.jsp">Home <span class="sr-only">(current)</span></a>
     		  </li>
     		  <li class="nav-item dropdown">
     		    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -40,7 +40,7 @@ for (String category : categories) {
 }
 
 }catch(Exception e){
-	RequestDispatcher rd = request.getRequestDispatcher("./GoHome");
+	RequestDispatcher rd = request.getRequestDispatcher("./Home.jsp");
 	rd.forward(request, response);
 	}
 %>			
@@ -95,8 +95,8 @@ String category = (String)request.getAttribute("category");
             "<div class=\"col mb-4\">" +
               "<div class=\"card cardProduct \">" +
     		      "<a href='./GoProductDetail?productId="+product.getProductId()+"'>"+
-                    "<img src='."+product.getImageLocation()+"' class=\"card-img-top\" alt=\"...\">" +
-                "<div class=\"card-body\">" +
+                    "<img src='./CA1"+product.getImageLocation()+"' class=\"card-img-top mx-auto\" alt=\"...\">" +
+                "<div class=\"card-body \">" +
                     "<h5 class=\"card-title\">"+product.getProductName()+"</h5>" +
                     "<p class=\"card-text\">"+String.format("%.2f", product.getCostPrice())+"</p>" +
         		  "</a>" +
