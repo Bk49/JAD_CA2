@@ -12,7 +12,7 @@
 </head>
 <body>
 <div class="d-flex justify-content-center text-center">
-	<form action="./GetUserDetails" method="post"><br>
+	<form action="../GetUserDetails" method="post"><br>
 	    <h2 class="text-warning">SHOPMANIA LOGIN</h2><br>
 		<input type="text" name="email" placeholder="Email" required/><br>
 		<input type="password" name="pwd" placeholder="Password" required/><br>
