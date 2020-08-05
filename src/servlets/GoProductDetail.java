@@ -38,9 +38,7 @@ public class GoProductDetail extends HttpServlet {
 			ProductDetailsDB productDB = new ProductDetailsDB();
 			ArrayList<String> categories = new ArrayList<String>();
 			
-			categories = productDB.getProductCategories();
-			System.out.println("This is the size of categories "+categories.size());
-			
+			categories = productDB.getProductCategories();			
 			request.setAttribute("productCategories", categories);
 
 			}catch(Exception e){

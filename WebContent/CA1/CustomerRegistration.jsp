@@ -11,7 +11,7 @@
 <body>
 <div class="d-flex justify-content-center text-center">
 
-	<form action="./InsertUser" method="post"><br>
+	<form action="../InsertUser" method="post"><br>
 		<h2 class="text-warning">SHOPMANIA REGISTER</h2>
 		<input type="text" name="fname" placeholder="First Name" required/>
 		<input type="text" name="lname" placeholder="Last Name" required/>

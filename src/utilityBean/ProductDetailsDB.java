@@ -21,7 +21,6 @@ public class ProductDetailsDB {
 	    		pstmt.setInt(1, productId);
 	    		ResultSet rs = pstmt.executeQuery();	          
 	          if (rs.next()) {
-	        	  System.out.print(rs.getString("productId")+" this is from ProductDetailsDB");
 	              product.setProductName(rs.getString("productName"));
 	              product.setProductId(rs.getInt("productId"));
 	              product.setBriefDescription(rs.getString("briefDescription"));
@@ -31,7 +30,7 @@ public class ProductDetailsDB {
 	              product.setStockQuantity(rs.getInt("stockQuantity"));
 	              product.setProductCategory(rs.getString("productCategory"));
 	              product.setImageLocation(rs.getString("imageLocation"));
-	          }	        
+	          }
 	          conn.close();
 	     } catch (Exception e) {
 	        System.err.println("Error :" + e);
@@ -137,7 +136,6 @@ public class ProductDetailsDB {
 	     } catch (Exception e) {
 	        System.err.println("Error :" + e);
 	     }
-		System.out.println("Length in product DetailsDB "+categories.size());
 		return categories;
 	}
 	

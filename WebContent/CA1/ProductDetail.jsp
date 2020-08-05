@@ -4,6 +4,7 @@
 <%@page import="java.util.ArrayList" %>
 <%@page import="valueBean.ProductDetails" %>
 <%@page import="valueBean.UserDetails" %>
+<%@page import="valueBean.CartDetails" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -80,32 +81,62 @@ out.print("<a class=\"nav-link\" href='./CA1/Login.jsp'>LOGIN</a>");
 <div class="row justify-content-center">
 <%
 ProductDetails product = (ProductDetails)request.getAttribute("product");
+String name = product.getProductName();
+String imageLocation = product.getImageLocation();
+String briefDescription = product.getBriefDescription();
+String detailDescription = product.getDetailDescription();
+double costPrice = product.getCostPrice();
+double retailPrice = product.getRetailPrice();
+String productCategory = product.getProductCategory();
+int productId = product.getProductId();
     		
 out.print(
 		"<div class=\"col-8 text-center\">"+
-		"<h2 class=\"text-warning\">"+product.getProductName()+"</h2>" +
-	    "<img src='./CA1"+product.getImageLocation()+"' class=\"productImg mx-auto width\" alt='productImage'>"+
+		"<h2 class=\"text-warning\">"+name+"</h2>" +
+	    "<img src='./CA1"+imageLocation+"' class=\"productImg mx-auto width\" alt='productImage'>"+
 		"</div>" +
 	   	"<div class=\"col-4 text-left\">" +
 				"<p class=\"text-warning\">Brief Description:</p>"+
-		"<div class=\"text-white\">"+product.getBriefDescription()+"</div>"+
+		"<div class=\"text-white\">"+briefDescription+"</div>"+
 				"<p class=\"text-warning\">Detailed Description:</p>"+
 
-		"<div class=\"text-white\">"+product.getDetailDescription()+"</div>"+
+		"<div class=\"text-white\">"+detailDescription+"</div>"+
 				"<p class=\"text-warning\">Cost Price:</p>"+
 
-		"<div class=\"text-white\">"+String.format("%.2f", product.getCostPrice())+"</div>"+
+		"<div class=\"text-white\">"+String.format("%.2f", costPrice)+"</div>"+
 				"<p class=\"text-warning\">Retail Price:</p>"+
 
-		"<div class=\"text-white\">"+String.format("%.2f", product.getRetailPrice())+"</div>"+
+		"<div class=\"text-white\">"+String.format("%.2f", retailPrice)+"</div>"+
 				"<p class=\"text-warning\">Product Category:</p>"+
 
-		"<div class=\"text-white\">"+product.getProductCategory()+"</div>" +
+		"<div class=\"text-white\">"+productCategory+"</div>" +
 		"</div>"
 		);
 %>
 </div>
 </div>
+
+<form action="../CA2/AddToCart" method="post">
+<input type="hidden" name="productId" value="<%= productId %>"/>
+
+<label>Quantity</label>
+<input type="number" name="quantity" min="1" value="1"/>
+
+<input type="submit" value="Add to Cart!"/>
+</form>
+
+<%
+ArrayList<CartDetails> cart = (session.getAttribute("cart") == null) ? null: (ArrayList<CartDetails>)session.getAttribute("cart");
+if(cart != null){
+	for(CartDetails cartDT : cart){
+		if(cartDT.getProductId() == productId){
+			out.print("<p class='text-white'>There is already "+cartDT.getQuantity()+" of this product in the cart!</p>");
+		}
+	}
+}
+%>
+
+<a href="./GoShoppingCart">Go to Cart!</a>
 
 <%@ include file = "footer.jsp" %>
 
