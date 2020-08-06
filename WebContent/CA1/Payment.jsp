@@ -12,8 +12,22 @@
 %>
 <form action="../MakePayments">
 <input type="hidden" value="<%= totalPrice %>"/>
-<label></label>
+<input type="number" name="ccNum" placeholder="Credit Card Number" required>
+<label>Credit Card Type</label>
+<select name="CCType" required>
+	<option value="AE">American Express</option>
+	<option value="AEC">American Express Corporate</option>
+	<option value="ABC">Australian BankCard</option>
+	<option value="DC">Diners Club</option>
+	<option value="DCV">Discover</option>
+	<option value="JCB">JCB</option>
+	<option value="MC">MasterCard</option>
+	<option value="VS">Visa</option>
+	<option value="DPBS">American Express</option>
+</select>
 
+ <input type="checkbox" name="save" value="save">
+ <label for="save">Save your payment details</label><br>
 <label>Price to Pay (GST included): <%= totalPrice %>></label>
 <input/>
 </form>
