@@ -100,7 +100,7 @@ String[] Print2 = new String[100] ;
 String[] Print = new String[100] ;
 int i = 0;
 for (String category : categories) {    
-	Print[i] = "<div class='card catCard'><a href='./GoProductListing?category="+category+"'>";
+	Print[i] = "<div class='card catCard'><a href='../GoProductListing?category="+category+"'>";
 	i++;
 }
 i = 0;

@@ -1,18 +1,33 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@page import="java.time.LocalDate" %>
+<%@page import="java.text.DateFormat" %>
+<%@page import="java.text.SimpleDateFormat" %>
+<%@page import="java.time.format.DateTimeFormatter" %>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
 <title>Payment</title>
+<script type="text/javascript">
+	var today = new Date();
+	document.getElemendById("expDt").min = today.getFullYear()+"-"+(today.getMonth+1)+"-"today.getDate();
+</script>
 </head>
 <body>
 <%
-	double totalPrice = (double)request.getAttribute("totalPrice");
+	double totalPrice = (double)session.getAttribute("totalPrice");
+	
+	SimpleDateFormat sdformat = new SimpleDateFormat("yyyy-MM-dd");
+	DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+	LocalDate now = LocalDate.now();
+	LocalDate tomorrow = now.plusDays(1);
+	String tomorrowStr = dtf.format(tomorrow);
 %>
-<form action="../MakePayments">
-<input type="hidden" value="<%= totalPrice %>"/>
-<input type="number" name="ccNum" placeholder="Credit Card Number" required>
+<form action="./Pay">
+<input type="text" name="ccName" placeholder="Name on Credit Card" required>
+<input type="text" name="ccNum" minlength="16" maxlength="16" pattern="\d*" placeholder="Credit Card Number" required>
 <label>Credit Card Type</label>
 <select name="CCType" required>
 	<option value="AE">American Express</option>
@@ -25,11 +40,14 @@
 	<option value="VS">Visa</option>
 	<option value="DPBS">American Express</option>
 </select>
+<input type="text" name="cvv" minlength="3" maxlength="3" pattern="\d*" placeholder="CVV code" required>
+<input id="expDt" type="date" name="expDt" min="<%=tomorrowStr%>" required>
 
- <input type="checkbox" name="save" value="save">
- <label for="save">Save your payment details</label><br>
+<input type="checkbox" name="save" value="save">
+<label for="save">Save your payment details</label><br>
+ 
 <label>Price to Pay (GST included): <%= totalPrice %>></label>
-<input/>
+<input type="submit" value="Pay Now!">
 </form>
 </body>
 </html>

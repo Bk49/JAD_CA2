@@ -41,12 +41,11 @@
 		out.print("Total Price: "+String.format("%.2f",totalPrice));
 		out.print("GST: "+String.format("%.2f",gst));
 		out.print("Total Price after GST: "+String.format("%.2f",(totalPrice + gst)));
-		out.print("<input type='hidden' value='"+(totalPrice + gst)+"' name='totalPrice'");
-		out.print("<input type='submit' value='Proceed to Checkout'>");
+		
+		session.setAttribute("totalPrice", (totalPrice + gst));
 	}else{
 		out.print("Shopping cart is empty!");
 	}
-	
 	
 %>
 <input type='submit' value='Proceed to Checkout'>

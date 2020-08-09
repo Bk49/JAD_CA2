@@ -3,6 +3,7 @@ package servlets;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -35,34 +36,34 @@ public class GoPayment extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
 		// Set the totalPrice to be used by the payments page
-		double totalPrice = Double.parseDouble(request.getParameter("totalPrice"));
-		request.setAttribute("totalPrice", totalPrice);
-		
-		// Insert a new order and orderDetails according to the order
 		HttpSession session = request.getSession();
+		double totalPrice = (double)session.getAttribute("totalPrice");
+				
+		// Insert a new order and orderDetails according to the order
 		UserDetails user = (UserDetails)session.getAttribute("user");
 		ArrayList<CartDetails> cart = (ArrayList<CartDetails>)session.getAttribute("cart");
 		
-		try {
-			// Insert new order
-			OrderDB orderDB = new OrderDB();
-			int count = orderDB.insertOrder(user.getUserId(), totalPrice);
-			if(count == 0) System.out.println("orderDB.insertOrder had failed to create the order!");
-			
-			// Get the id of the inserted order
-			int orderId = orderDB.getOrderId(user.getUserId(), totalPrice);
-			if(orderId == 0) System.out.println("orderDB.getOrderId had failed to get the orderId!");
-			
-			// Use the orderId for inserting the orderDetails
-			OrderDetailsDB orderDTDB =  new OrderDetailsDB();
-			int count2 = orderDTDB.bulkInsertOD(orderId, cart);
-			if(count2 == 0) System.out.println("orderDTDB insert bulk had failed");
-			
-		}catch(Exception e) {
-			System.out.println(e);
-		}
-
+			try {
+				// Insert new order
+				OrderDB orderDB = new OrderDB();
+				int count = orderDB.insertOrder(user.getUserId(), totalPrice);
+				if(count == 0) System.out.println("orderDB.insertOrder had failed to create the order!");
+				
+				// Get the id of the inserted order
+				int orderId = orderDB.getOrderId(user.getUserId(), totalPrice);
+				if(orderId == 0) System.out.println("orderDB.getOrderId had failed to get the orderId!");
+				
+				// Use the orderId for inserting the orderDetails
+				OrderDetailsDB orderDTDB =  new OrderDetailsDB();
+				int count2 = orderDTDB.bulkInsertOD(orderId, cart);
+				if(count2 == 0) System.out.println("orderDTDB insert bulk had failed");
+				
+			}catch(Exception e) {
+				System.out.println(e);
+			}
+		
 		// Forwards to Payment.jsp
 		RequestDispatcher rd = request.getRequestDispatcher("CA1/Payment.jsp");
 		rd.forward(request, response);
