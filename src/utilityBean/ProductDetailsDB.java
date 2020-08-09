@@ -308,5 +308,37 @@ public class ProductDetailsDB {
 				return noOfProducts;
 			}
 			
+			// Select random products
+			public ArrayList<ProductDetails> searchProduct(String searchStr, int pg) {
+				ArrayList<ProductDetails> products = new ArrayList<ProductDetails>();
+				ProductDetails product;
+				int startRow = pg*9-9;
+				try {
+			           Class.forName("com.mysql.jdbc.Driver");
+				         String connURL = "jdbc:mysql://us-cdbr-east-02.cleardb.com:3306/heroku_ec924e2e031aaa6?user=bd75cdad57c09f&password=75b47259&serverTimezone=UTC";
+
+			          Connection conn = DriverManager.getConnection(connURL); 
+			          String sqlStr = "SELECT * FROM product WHERE productName LIKE ? LIMIT ? , 9";
+			          
+			    		PreparedStatement pstmt = conn.prepareStatement(sqlStr);
+			    		pstmt.setString(1, "%"+searchStr+"%");
+			    		pstmt.setInt(2, startRow);
+			    		System.out.println(pstmt);
+			    		ResultSet rs = pstmt.executeQuery();	          
+			          while (rs.next()) {
+			      		  product = new ProductDetails();
+			      		  System.out.println("Printed from PDDB, productId : " +rs.getInt("productId"));
+			      		  product.setProductName(rs.getString("productName"));
+			              product.setProductId(rs.getInt("productId"));
+			              product.setCostPrice(rs.getDouble("costPrice"));
+			              product.setImageLocation(rs.getString("imageLocation"));
+			              products.add(product);
+			          }	        
+			          conn.close();
+			     } catch (Exception e) {
+			        System.err.println("Error :" + e);
+			     }
+				return products;
+			}
 	
 }

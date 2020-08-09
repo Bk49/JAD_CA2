@@ -34,8 +34,6 @@ public class GoProductListing extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		
-			
 		// Getting the page number and set the current page number in the request obj
 		int pg;
 		try {

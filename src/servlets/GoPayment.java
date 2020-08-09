@@ -43,6 +43,9 @@ public class GoPayment extends HttpServlet {
 				
 		// Insert a new order and orderDetails according to the order
 		UserDetails user = (UserDetails)session.getAttribute("user");
+		if(user== null) {
+			response.sendRedirect("./CA1/Login");
+		}
 		ArrayList<CartDetails> cart = (ArrayList<CartDetails>)session.getAttribute("cart");
 		
 			try {

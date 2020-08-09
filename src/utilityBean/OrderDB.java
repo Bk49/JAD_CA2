@@ -4,8 +4,12 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+
+import valueBean.Order;
 
 public class OrderDB {
+	// Insert a new order after the user check out
 	public int insertOrder(int customerId, double totalPrice) {
 		int count = 0;
 		try {
@@ -28,6 +32,7 @@ public class OrderDB {
 		return count;
 	}
 	
+	// Get the id for the order to make payment
 	public int getOrderId(int customerId, double totalPrice) {
 		int orderId=0;
 		try {
@@ -51,5 +56,60 @@ public class OrderDB {
 	        System.err.println("Error :" + e);
 	     }
 		return orderId;
+	}
+	
+	// Set status to "Paid" after the user insert payment details
+	public int pay(int orderId) {
+		int count = 0;
+		try {
+	           Class.forName("com.mysql.jdbc.Driver");
+		         String connURL = "jdbc:mysql://us-cdbr-east-02.cleardb.com:3306/heroku_ec924e2e031aaa6?user=bd75cdad57c09f&password=75b47259&serverTimezone=UTC";
+
+	          Connection conn = DriverManager.getConnection(connURL); 
+	          String sqlStr = "UPDATE `order` SET status = 'Paid' WHERE orderId = ?";
+
+	    		PreparedStatement pstmt = conn.prepareStatement(sqlStr);
+	    		pstmt.setInt(1, orderId);
+	    		count = pstmt.executeUpdate();	          
+	    		
+	    		conn.close();
+	    		
+	     } catch (Exception e) {
+	        System.err.println("Error :" + e);
+	     }
+		return count;
+	}
+	
+	// Get the orders from database
+	public ArrayList<Order> getOrders(int customerId) {
+		ArrayList<Order> orders = new ArrayList<Order>();
+		Order order;
+		try {
+	          Class.forName("com.mysql.jdbc.Driver");
+		      String connURL = "jdbc:mysql://us-cdbr-east-02.cleardb.com:3306/heroku_ec924e2e031aaa6?user=bd75cdad57c09f&password=75b47259&serverTimezone=UTC";
+
+	          Connection conn = DriverManager.getConnection(connURL); 
+	          String sqlStr = "SELECT orderId, orderDate, status, totalPrice, discountId from `order` WHERE customerId = ? ORDER BY orderId DESC";
+
+	    		PreparedStatement pstmt = conn.prepareStatement(sqlStr);
+	    		pstmt.setInt(1, customerId);
+	    		ResultSet rs = pstmt.executeQuery();	          
+	    		while(rs.next()) {
+	    			order = new Order();
+	    			order.setOrderId(rs.getInt("orderId"));
+	    			order.setOrderDate(rs.getString("orderDate"));
+	    			order.setStatus(rs.getString("status"));
+	    			order.setTotalPrice(rs.getDouble("totalPrice"));
+	    			order.setDiscountId(rs.getInt("discountId"));
+	    			order.setCustomerId(customerId);
+	    			orders.add(order);
+	    		}
+	    		
+	    		conn.close();
+	    		
+	     } catch (Exception e) {
+	        System.err.println("Error :" + e);
+	     }
+		return orders;
 	}
 }

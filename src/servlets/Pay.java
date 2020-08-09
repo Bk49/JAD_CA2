@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import valueBean.UserDetails;
 import valueBean.PaymentDetails;
+import utilityBean.OrderDB;
 import utilityBean.PaymentDB;
 
 
@@ -35,9 +36,19 @@ public class Pay extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// Get the totalPrice and user stored under the session
 		HttpSession session = request.getSession();
+		double totalPrice = (double)session.getAttribute("totalPrice");
+		
+		// Get the user
 		UserDetails user = (UserDetails)session.getAttribute("user");
-		if(user == null) {
-			System.out.println("User is null!");
+		
+		try {
+			// Change the status to be paid
+			OrderDB orderDB = new OrderDB();
+			int orderId = orderDB.getOrderId(user.getUserId(), totalPrice);	
+			int count = orderDB.pay(orderId);
+			System.out.println(count+" number of rows has been updated!");
+		}catch(Exception e) {
+			System.out.println(e);
 		}
 		
 		// Get all the details from the form
@@ -53,13 +64,12 @@ public class Pay extends HttpServlet {
 		if(save == null) {
 			System.out.println("Save checkbox returns null!");
 		}
-		PaymentDetails payment = new PaymentDetails();
-		
-			
 			session.setAttribute("cart", null);
 			// If save is checked, save payment details
 			if(save !=null) {
 				try {
+					PaymentDetails payment = new PaymentDetails();
+
 					payment.setCcName(ccName);
 					payment.setCcNum(ccNumStr);
 					payment.setCcType(ccType);
