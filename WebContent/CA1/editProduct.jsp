@@ -2,6 +2,7 @@
     pageEncoding="ISO-8859-1"%>
        <%@page import="java.sql.*" %>
        <%@page import="valueBean.ProductDetails" %>
+       <%@ page import="java.util.ArrayList" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,7 +28,7 @@ String imageLocation= product.getImageLocation();
 %>
 <div class="d-flex justify-content-center text-center">
 <h2 class="text-warning">Edit Product</h2>
-<form action='../CA2/EditProduct'>
+<form action='./EditProduct' method="post" enctype="multipart/form-data">
 	<input type="hidden" name="productId" value="<%=productId%>"/>
 
     <div class="form-group">
@@ -62,8 +63,8 @@ String imageLocation= product.getImageLocation();
 	  <input type="number" name="stockQuantity" value="<%=stockQuantity%>" required />
     </div>
      <div class="form-group col-md-6">
-      <label>Image Location</label><br>
-	  <input type="text" name="imageLocation" value="<%=imageLocation%>"/>
+      <label>Image Upload</label><br>
+	  <input type="file" name="guru_file" size="50" accept="image/*" />
     </div>
    
   </div>
@@ -72,12 +73,12 @@ String imageLocation= product.getImageLocation();
       <label>Product Category</label>
       <select id="productCategory" name="productCategory" class="form-control" required>
 		<option></option>
-        <option>Gaming Keyboard</option>
-        <option>Gaming Mouse</option>
-        <option>Gaming Mouse Pad</option>
-        <option>Gaming Headphones</option>
-        <option>Computer Graphics Card</option>
-        
+        <%
+        ArrayList<String> categories = (ArrayList<String>)request.getAttribute("productCategories");
+		for (String category : categories) {    
+    	out.print("<option>"+category.toUpperCase()+"</option>");
+		}
+  		%> 
       </select>
     </div>
     
@@ -85,7 +86,7 @@ String imageLocation= product.getImageLocation();
 </form>
 </div>
 <script>
-document.getElementById("productCategory").value ="<%=productCategory%>"
+document.getElementById("productCategory").value ="<%=productCategory.toUpperCase()%>"
 </script>
 </body>
 </html>
