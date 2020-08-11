@@ -2,6 +2,8 @@ package servlets;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.io.File;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,21 +11,26 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+ 
+import utilityBean.DiscountDetailsDB;
 import utilityBean.ProductDetailsDB;
-import valueBean.ProductDetails;
+import valueBean.DiscountDetails;
+
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 /**
- * Servlet implementation class GoEditProducts
+ * Servlet implementation class AddDiscount
  */
-@WebServlet("/GoEditProduct")
-public class GoEditProduct extends HttpServlet {
+@WebServlet("/AddProductPage")
+public class AddProductPage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public GoEditProduct() {
+    public AddProductPage() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,8 +40,6 @@ public class GoEditProduct extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-
-		//get Categories
 		try {
 			ProductDetailsDB productDB = new ProductDetailsDB();
 			ArrayList<String> categories = new ArrayList<String>();
@@ -46,18 +51,8 @@ public class GoEditProduct extends HttpServlet {
 			}catch(Exception e){
 				System.out.print(e);
 			}
-		// Get productId to be edited
-					int productId = Integer.parseInt(request.getParameter("productId"));
-					
-					
-					// Get Product Details
-					ProductDetailsDB productDB = new ProductDetailsDB();
-					ProductDetails product = productDB.getProductDetails(productId);
-					request.setAttribute("product", product);
-					
-					// Forwards to editProduct.jsp
-					RequestDispatcher rd = request.getRequestDispatcher("/CA1/editProduct.jsp");
-					rd.forward(request, response);
+		RequestDispatcher rd = request.getRequestDispatcher("CA1/addProduct.jsp");
+		rd.forward(request, response);
 	}
 
 	/**
