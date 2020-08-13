@@ -66,7 +66,7 @@ for (String category : categories) {
    "<a class='dropdown-item' href='./CA1/logout.jsp'>Log Out</a>" +
  "</div>");
     }else{
-  	  out.print("<a class=\"nav-link\" href='Login.jsp'>LOGIN</a>");
+  	  out.print("<a class=\"nav-link\" href='CA1/Login.jsp'>LOGIN</a>");
     }
 
 %>

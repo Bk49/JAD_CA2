@@ -41,10 +41,18 @@ public class Pay extends HttpServlet {
 		// Get the user
 		UserDetails user = (UserDetails)session.getAttribute("user");
 		
+		String orderIdStr = request.getParameter("orderId"); 
+		System.out.println(orderIdStr);
+		
 		try {
 			// Change the status to be paid
 			OrderDB orderDB = new OrderDB();
-			int orderId = orderDB.getOrderId(user.getUserId(), totalPrice);	
+			int orderId;
+			if(orderIdStr.equals("") || orderIdStr == null) {
+				orderId =  orderDB.getOrderId(user.getUserId(), totalPrice);
+			}else {
+				orderId = Integer.parseInt(orderIdStr);
+			}
 			int count = orderDB.pay(orderId);
 			System.out.println(count+" number of rows has been updated!");
 		}catch(Exception e) {

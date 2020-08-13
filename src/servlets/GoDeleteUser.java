@@ -32,16 +32,16 @@ public class GoDeleteUser extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// Get productId to be deleted
-				int userId = Integer.parseInt(request.getParameter("userId"));
-				
-				// Get User Details
-				UserDetailsDB userDB = new UserDetailsDB();
-				UserDetails user = userDB.getUserDetailsById(userId);
-				request.setAttribute("user", user);
-				
-				// Forwards to deleteUser.jsp
-				RequestDispatcher rd = request.getRequestDispatcher("/CA1/deleteUser.jsp");
-				rd.forward(request, response);
+		int userId = Integer.parseInt(request.getParameter("userId"));
+		
+		// Get User Details
+		UserDetailsDB userDB = new UserDetailsDB();
+		UserDetails user = userDB.getUserDetailsById(userId);
+		request.setAttribute("user", user);
+		
+		// Forwards to deleteUser.jsp
+		RequestDispatcher rd = request.getRequestDispatcher("/CA1/deleteUser.jsp");
+		rd.forward(request, response);
 	}
 
 	/**

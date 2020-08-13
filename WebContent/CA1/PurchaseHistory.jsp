@@ -18,7 +18,7 @@
 				"<br>Date of Order : "+order.getOrderDate()+
 				"<br>Status : "+order.getStatus()+
 				"<br>Total Price : "+order.getTotalPrice()+
-				"<br><a href='./GoPurchaseOrder?orderId="+order.getOrderId()+"'>Check Order Details</a>"+
+				"<br><a href='./GoPurchaseOrder?status="+order.getStatus()+"&orderId="+order.getOrderId()+"'>Check Order Details</a>"+
 			"</div>"
 		);
 	}

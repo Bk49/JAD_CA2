@@ -112,4 +112,29 @@ public class OrderDB {
 	     }
 		return orders;
 	}
+	
+	// Get totalPrice by orderId
+	public double getPriceById(int orderId) {
+		double totalPrice = 0;
+		try {
+	          Class.forName("com.mysql.jdbc.Driver");
+		      String connURL = "jdbc:mysql://us-cdbr-east-02.cleardb.com:3306/heroku_ec924e2e031aaa6?user=bd75cdad57c09f&password=75b47259&serverTimezone=UTC";
+
+	          Connection conn = DriverManager.getConnection(connURL); 
+	          String sqlStr = "SELECT totalPrice FROM `order` WHERE orderId = ?";
+
+	    		PreparedStatement pstmt = conn.prepareStatement(sqlStr);
+	    		pstmt.setInt(1, orderId);
+	    		ResultSet rs = pstmt.executeQuery();	          
+	    		if(rs.next()) {
+	    			totalPrice = rs.getDouble("totalPrice");
+	    		}
+	    		
+	    		conn.close();
+	    		
+	     } catch (Exception e) {
+	        System.err.println("Error :" + e);
+	     }
+		return totalPrice;
+	}
 }
