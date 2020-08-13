@@ -46,6 +46,9 @@ public class PayByPD extends HttpServlet {
 				}catch(Exception e) {
 					System.out.println(e);
 				}
+				
+				// Link to purchase history jsp page with servlet
+				response.sendRedirect("./GoPurchaseHistory");
 	}
 
 	/**
