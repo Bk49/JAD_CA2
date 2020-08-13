@@ -1,18 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="valueBean.ProductDetails" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
 <title>Add Products</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-<link rel="stylesheet" type="text/css" href="./css/addProduct.css">
+<link rel="stylesheet" type="text/css" href="./CA1/css/addProduct.css">
 </head>
 <body>
 <div class="d-flex justify-content-center text-center">
 <h2 class="text-warning">Add Product</h2>
-<form  action="../AddProduct" method="post">
+<form  action="./AddProduct" method="post" enctype="multipart/form-data">
+
     <div class="form-group">
       <label>Name of Product</label><br>
 		<input type="text" name="productName" placeholder="Name of Product" required/>
@@ -45,8 +47,8 @@
 	  <input type="number" name="stockQuantity" placeholder="Stock Quantity" required/>
     </div>
      <div class="form-group col-md-6">
-      <label>Image Location</label><br>
-	  <input type="text" name="imageLocation" placeholder="Image Location"/>
+      <label>Image Upload</label><br>
+	  <input type="file" name="guru_file" size="50" accept="image/*" />
     </div>
    
   </div>
@@ -55,13 +57,13 @@
       <label>Product Category</label>
       <select name="productCategory" class="form-control" required>
 		<option></option>
-        <option>Gaming Keyboard</option>
-        <option>Gaming Mouse</option>
-        <option>Gaming Mouse Pad</option>
-        <option>Gaming Headphones</option>
-        <option>Computer Graphics Card</option>
-        
-      </select>
+        <%
+        ArrayList<String> categories = (ArrayList<String>)request.getAttribute("productCategories");
+		for (String category : categories) {    
+    	out.print("<option>"+category.toUpperCase()+"</option>");
+		}
+  		%>  
+    </select>
     </div>
     
   

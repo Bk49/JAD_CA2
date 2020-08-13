@@ -20,13 +20,13 @@
 		  <div class="collapse navbar-collapse" id="navbarSupportedContent">
   		  <ul class="navbar-nav mr-auto">
     		  <li class="nav-item active">
-    		    <a class="nav-link" href="../CA2/GoHome">Home <span class="sr-only">(current)</span></a>
+    		    <a class="nav-link" href="./GoHome">Home <span class="sr-only">(current)</span></a>
     		  </li>
     		  <li class="nav-item active">
-    		    <a class="nav-link" href="../CA2/GoDiscountTable">Edit Discounts<span class="sr-only">(current)</span></a>
+    		    <a class="nav-link" href="./GoDiscountTable">Edit Discounts<span class="sr-only">(current)</span></a>
     		  </li>
     		  <li class="nav-item active">
-    		    <a class="nav-link" href="../CA2/GoProductTable">Edit Products<span class="sr-only">(current)</span></a>
+    		    <a class="nav-link" href="./GoProductTable">Edit Products<span class="sr-only">(current)</span></a>
     		  </li>
     		  <li class="nav-item active">
     		    <a class="nav-link" href="">Edit Users<span class="sr-only">(current)</span></a>
@@ -43,8 +43,14 @@
 <h1>Products in the database</h1>
 
 <!-- This button will allow the user to add new products into the database -->
-<a class='btn btn-warning' href='./CA1/addProduct.jsp'>Add new item</a><br><br>
-
+<a class='btn btn-warning' href='./AddProductPage'>Add new item</a>
+<div class="container text-right">
+<form action="./GoProductTable">
+<input type="text" name="productSearch"  value="<%= request.getAttribute("ProductSearch") != null?request.getAttribute("ProductSearch") : "Enter Product Name" %> " placeholder="Enter Product Name"/>
+<input type="submit" class="submit bg-warning" value="Search"/>
+</form>
+<br>
+</div>
 <table class="table table-striped table-hover" > <!-- All products will be pushed into this table -->
 <tr>
 <th>No.</th>
@@ -69,8 +75,8 @@ ArrayList<ProductDetails> products = (ArrayList<ProductDetails>)request.getAttri
        "<td>"+String.format("%.2f",product.getRetailPrice())+"</td>"+
        "<td>"+product.getStockQuantity()+"</td>"+
        "<td>"+product.getProductCategory()+"</td>"+
-       "<td><a class='btn btn-warning' href='../CA2/GoEditProduct?productId="+product.getProductId()+"'\">Edit</button></td>"+
-       "<td><a class='btn btn-warning' href='../CA2/GoDeleteProduct?productId="+product.getProductId()+"'\">Delete</button></td>"+
+       "<td><a class='btn btn-warning' href='./GoEditProduct?productId="+product.getProductId()+"'\">Edit</button></td>"+
+       "<td><a class='btn btn-warning' href='./GoDeleteProduct?productId="+product.getProductId()+"'\">Delete</button></td>"+
        "</tr>");
        
        count++;
@@ -82,14 +88,24 @@ ArrayList<ProductDetails> products = (ArrayList<ProductDetails>)request.getAttri
 <!-- Use this button to access to the next 10 rows in the second page -->
 <div class='pagination'>
 <%
+	String productSearch = (String)request.getAttribute("ProductSearch");
 	double noOfProducts;
 	noOfProducts = (double)request.getAttribute("productCount");
    
         double Pages = (double)Math.ceil((double) noOfProducts/(double)10.0);
 
-        for(int i = 0 ; i < Pages; i++)
-     out.print("<a  class='active' href='GoProductTable?pg="+(i+1)+"'>"+ (i+1) +"</a>");	          
-		          
+        for(int i = 0 ; i < Pages; i++){
+        	System.out.print(productSearch);
+        	if(productSearch == null){
+
+   			 out.print("<a  class='active' href='GoProductTable?pg="+(i+1)+"'>"+ (i+1) +"</a>");
+        	}
+        	else{
+        	     out.print("<a  class='active' href='GoProductTable?productSearch="+productSearch+"&pg="+(i+1)+"'>"+ (i+1) +"</a>");	          
+
+        	}
+        
+        }
 %>
 </div>
 </div>

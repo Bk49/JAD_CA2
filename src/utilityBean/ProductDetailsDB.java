@@ -227,7 +227,44 @@ public class ProductDetailsDB {
 				return products;
 			}
 			
-			// Get count of discounts
+			// Get 10 products according to its page and product search
+						public ArrayList<ProductDetails> getProductsSearchLimit(int pg, String ProductSearch) {
+							ProductDetails product;
+							ArrayList<ProductDetails> products = new ArrayList<ProductDetails>();
+							
+							int startRow = pg*10-10;
+							try {
+						           Class.forName("com.mysql.jdbc.Driver");
+							         String connURL = "jdbc:mysql://us-cdbr-east-02.cleardb.com:3306/heroku_ec924e2e031aaa6?user=bd75cdad57c09f&password=75b47259&serverTimezone=UTC";
+
+
+						          Connection conn = DriverManager.getConnection(connURL); 
+						          String sqlStr = "Select productId, productName, costPrice, retailPrice, stockQuantity, productCategory FROM product Where productName LIKE ?  LIMIT ?,10";
+						    		PreparedStatement pstmt = conn.prepareStatement(sqlStr);
+						    		pstmt.setString(1, "%" +ProductSearch+ "%");
+						    		pstmt.setInt(2, startRow);
+						    		
+						    		ResultSet rs = pstmt.executeQuery();	          
+						          while (rs.next()) {
+						        	  product = new ProductDetails();
+						        	  product.setProductId(rs.getInt("productId"));
+						        	  product.setProductName(rs.getString("productName"));
+						        	  product.setCostPrice(rs.getDouble("costPrice"));
+						        	  product.setRetailPrice(rs.getDouble("retailPrice"));
+						        	  product.setStockQuantity(rs.getInt("stockQuantity"));
+						        	  product.setProductCategory(rs.getString("productCategory"));
+						              products.add(product);
+						          }	        
+						          conn.close();
+						     } catch (Exception e) {
+						        System.err.println("Error :" + e);
+						     }
+							System.out.println("Size of products in ProductDetailsDB "+products.size());
+							return products;
+						}
+						
+			
+			// Get count of product
 			public double getProductCount() {
 				double count = 0;
 				try {
@@ -238,6 +275,29 @@ public class ProductDetailsDB {
 			          String sqlStr = "SELECT COUNT(*) count FROM product";
 
 			    		PreparedStatement pstmt = conn.prepareStatement(sqlStr);
+	
+			    		ResultSet rs = pstmt.executeQuery();	          
+			          if (rs.next()) {
+			        	  count = (double)rs.getInt("count");
+			          }	        
+			          conn.close();
+			     } catch (Exception e) {
+			        System.err.println("Error :" + e);
+			     }
+				return count;
+			}
+			//getCount of product searched
+			public double getProductSearchCount(String ProductSearch) {
+				double count = 0;
+				try {
+			           Class.forName("com.mysql.jdbc.Driver");
+				         String connURL = "jdbc:mysql://us-cdbr-east-02.cleardb.com:3306/heroku_ec924e2e031aaa6?user=bd75cdad57c09f&password=75b47259&serverTimezone=UTC";
+
+			          Connection conn = DriverManager.getConnection(connURL); 
+			          String sqlStr = "Select COUNT(*) count FROM product Where productName LIKE ?";
+
+			    		PreparedStatement pstmt = conn.prepareStatement(sqlStr);
+			    		pstmt.setString(1, "%" +ProductSearch+ "%");
 			    		ResultSet rs = pstmt.executeQuery();	          
 			          if (rs.next()) {
 			        	  count = (double)rs.getInt("count");
