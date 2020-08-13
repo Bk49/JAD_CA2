@@ -14,7 +14,9 @@ import javax.servlet.http.HttpSession;
 
 import utilityBean.OrderDB;
 import utilityBean.OrderDetailsDB;
+import utilityBean.PaymentDB;
 import valueBean.CartDetails;
+import valueBean.PaymentDetails;
 import valueBean.UserDetails;
 
 /**
@@ -66,7 +68,12 @@ public class GoPayment extends HttpServlet {
 			}catch(Exception e) {
 				System.out.println(e);
 			}
-		
+			
+		// Get all payment details available from this user
+		PaymentDB paymentDB = new PaymentDB();
+		ArrayList<PaymentDetails> payments = paymentDB.getPaymentDetails(user.getUserId());
+		request.setAttribute("payments", payments);
+			
 		// Forwards to Payment.jsp
 		RequestDispatcher rd = request.getRequestDispatcher("CA1/Payment.jsp");
 		rd.forward(request, response);

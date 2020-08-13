@@ -4,6 +4,8 @@
 <%@page import="java.text.DateFormat" %>
 <%@page import="java.text.SimpleDateFormat" %>
 <%@page import="java.time.format.DateTimeFormatter" %>
+<%@page import="valueBean.PaymentDetails" %>
+<%@page import="java.util.ArrayList" %>
 
 <!DOCTYPE html>
 <html>
@@ -49,5 +51,20 @@
 <label>Price to Pay (GST included): <%= totalPrice %>></label>
 <input type="submit" value="Pay Now!">
 </form>
+<%
+	ArrayList<PaymentDetails> payments = (ArrayList<PaymentDetails>)request.getAttribute("payments");
+	if(payments.size() >0){
+		for(PaymentDetails payment : payments){
+			out.print("<form action='./PayByPD'>"+
+						"<label>Credit Card Owner : "+payment.getCcName()+"</label>"+
+						"<label>Credit Card Number : "+payment.getCcNum()+"</label>"+
+						"<label>Credit Card Type : "+payment.getCcType()+"</label>"+
+						"<label>Expiry Date : "+payment.getCcExpDate()+"</label>"+
+						"<input type='submit' value='Pay'>"+
+					"</form>");
+		}
+	}
+	
+%>
 </body>
 </html>

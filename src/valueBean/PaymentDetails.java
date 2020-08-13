@@ -9,7 +9,7 @@ public class PaymentDetails {
 	private int customerId;
 	
 	public PaymentDetails() {
-
+		super();
 	}
 
 	public String getCcType() {
