@@ -36,12 +36,12 @@ try{
 ArrayList<String> categories = (ArrayList<String>)request.getAttribute("productCategories");
 for (String category : categories) {    
     // Style this line of code!
-    out.print("<a href='../GoProductListing?category="+category+"' class='dropdown-item'>"+category.toUpperCase()+"</a><br>");
+    out.print("<a href='"+request.getContextPath()+"/GoProductListing?category="+category+"' class='dropdown-item'>"+category.toUpperCase()+"</a><br>");
 }
 
 }catch(Exception e){
 	System.out.print("it works");
-	RequestDispatcher rd = request.getRequestDispatcher("../GoHome");
+	RequestDispatcher rd = request.getRequestDispatcher(request.getContextPath()+"/GoHome");
 	rd.forward(request, response);
 	}
 
@@ -62,12 +62,12 @@ for (String category : categories) {
 	        String pfp = user.getPfp();
 	        out.print("<a href='nav-link dropdown-toggle ' style='margin:0px' href='#' id='navbarDropdown' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'><img src='."+pfp+"' alt='userPfp' width=\"auto\" height=\"60px\"></a>");
 	        out.print("<div class='dropdown-menu' aria-labelledby='navbarDropdown'>" +
-	      "<a class='dropdown-item' href='../GoProfilePage'>Profile</a>" +
+	      "<a class='dropdown-item' href='"+request.getContextPath()+"/GoProfilePage'>Profile</a>" +
 	"<div class='dropdown-divider'></div>" +
 	   "<a class='dropdown-item' href='./logout.jsp'>Log Out</a>" +
 	 "</div>");
 	}else{
-		out.print("<a class=\"nav-link\" href='../GetUserDetails'>LOGIN</a>");
+		out.print("<a class=\"nav-link\" href='"+request.getContextPath()+"/GetUserDetails'>LOGIN</a>");
 	}
 %>
 
@@ -95,12 +95,14 @@ for (String category : categories) {
 <%
 ArrayList<String> categories = (ArrayList<String>)request.getAttribute("productCategories");
 ArrayList<String> categoriesImg = (ArrayList<String>)request.getAttribute("randomProductCatPic");
+
+// Old Code
 String[] Print1 = new String[100] ;
 String[] Print2 = new String[100] ;
 String[] Print = new String[100] ;
 int i = 0;
 for (String category : categories) {    
-	Print[i] = "<div class='card catCard'><a href='../GoProductListing?category="+category+"'>";
+	Print[i] = "<div class='card catCard'><a href='"+request.getContextPath()+"/GoProductListing?category="+category+"'>";
 	i++;
 }
 i = 0;
@@ -110,7 +112,7 @@ for (String category : categoriesImg) {
 }
 i = 0;
 for (String category : categories) {    
-	Print2[i] ="<div class='card-body'><h5 class='card-title text-white'><a href='../GoProductListing?category="+category+"'>"+category.toUpperCase()+"</a></h5></div></div>";
+	Print2[i] ="<div class='card-body'><h5 class='card-title text-white'><a href='"+request.getContextPath()+"/GoProductListing?category="+category+"'>"+category.toUpperCase()+"</a></h5></div></div>";
 	i++;
 }
 i = 0;
@@ -120,6 +122,13 @@ for(String category : categories){
 	out.print(Print2[i]);
 i++;
 }
+
+// New code
+//for(int i =0;i< categories.size();i++){
+//	out.print("<div class='card catCard'><a href='"+request.getContextPath()+"/GoProductListing?category="+categories.get(i)+"'>");
+//	out.print("<img src='."+categoriesImg.get(i)+"' class='card-img-top catIcon' alt='Category Image' ></a>");
+//	out.print("<div class='card-body'><h5 class='card-title text-white'><a href='"+request.getContextPath()+"/GoProductListing?category="+categories.get(i)+"'>"+categories.get(i).toUpperCase()+"</a></h5></div></div>");
+//}
 %>
 </div>
 </div>
@@ -139,7 +148,7 @@ i++;
    			out.print(
         "<div class=\"col mb-4\">" +
           "<div class=\"card cardProduct \">" +
-		      "<a href='../GoProductDetail?productId="+product.getProductId()+"'>"+
+		      "<a href='"+request.getContextPath()+"/GoProductDetail?productId="+product.getProductId()+"'>"+
                 "<img src='."+product.getImageLocation()+"' class=\"card-img-top card-all-cat mx-auto\" alt=\"random products\">" +
             "<div class=\"card-body card-body-random-products\">" +
                 "<h5 class=\"card-title \">"+product.getProductName()+"</h5>" +
