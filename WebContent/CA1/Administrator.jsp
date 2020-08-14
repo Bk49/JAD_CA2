@@ -30,29 +30,32 @@ if(user!=null){
 }
 %>
 
+
 <nav class="navbar navbar-expand-lg navbar-custom navbar-dark ">
  		 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
    			 <span class="navbar-toggler-icon"></span>
  		 </button>
 		  <div class="collapse navbar-collapse" id="navbarSupportedContent">
   		  <ul class="navbar-nav mr-auto">
+  		    		      <li class="nav-item active">
+    		    <a class="nav-link" href="./Administrator.jsp">Administrator <span class="sr-only">(current)</span></a>
+    		  </li>
     		  <li class="nav-item active">
     		    <a class="nav-link" href="../GoHome">Home <span class="sr-only">(current)</span></a>
     		  </li>
     		  <li class="nav-item active">
-    		    <a class="nav-link" href="../GoDiscountTable?pg=1">Edit Discounts<span class="sr-only">(current)</span></a>
+    		    <a class="nav-link" href="../GoDiscountTable">Edit Discounts<span class="sr-only">(current)</span></a>
     		  </li>
     		  <li class="nav-item active">
-    		    <a class="nav-link" href="../GoProductTable?pg=1">Edit Products<span class="sr-only">(current)</span></a>
+    		    <a class="nav-link" href="../GoProductTable">Edit Products<span class="sr-only">(current)</span></a>
     		  </li>
     		  <li class="nav-item active">
-    		    <a class="nav-link" href="">Edit Users<span class="sr-only">(current)</span></a>
+    		    <a class="nav-link" href="../GoUserTable">Edit Users<span class="sr-only">(current)</span></a>
     		  </li>
     		  <li class="nav-item active">
-    		    <a class="nav-link" href="">Orders<span class="sr-only">(current)</span></a>
+    		    <a class="nav-link" href="../Reports">Reports<span class="sr-only">(current)</span></a>
     		  </li>
  		   </ul>
-   		 
   </div>
 </nav>
 

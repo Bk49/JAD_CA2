@@ -10,7 +10,7 @@
 <meta charset="ISO-8859-1">
 <title>Home</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-<link rel="stylesheet" type="text/css" href="./css/Home.css?v=2">
+<link rel="stylesheet" type="text/css" href= "<%=request.getContextPath()%>/CA1/css/Home.css?v=2">
 <link rel="stylesheet" type="text/css" href="./css/footer.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -97,38 +97,14 @@ ArrayList<String> categories = (ArrayList<String>)request.getAttribute("productC
 ArrayList<String> categoriesImg = (ArrayList<String>)request.getAttribute("randomProductCatPic");
 
 // Old Code
-String[] Print1 = new String[100] ;
-String[] Print2 = new String[100] ;
-String[] Print = new String[100] ;
-int i = 0;
-for (String category : categories) {    
-	Print[i] = "<div class='card catCard'><a href='"+request.getContextPath()+"/GoProductListing?category="+category+"'>";
-	i++;
-}
-i = 0;
-for (String category : categoriesImg) {
-	Print1[i] = "<img src='."+category+"' class='card-img-top catIcon' alt='Category Image' ></a>";
-	i++;
-}
-i = 0;
-for (String category : categories) {    
-	Print2[i] ="<div class='card-body'><h5 class='card-title text-white'><a href='"+request.getContextPath()+"/GoProductListing?category="+category+"'>"+category.toUpperCase()+"</a></h5></div></div>";
-	i++;
-}
-i = 0;
-for(String category : categories){
-	out.print(Print[i]);
-	out.print(Print1[i]);
-	out.print(Print2[i]);
-i++;
-}
+
 
 // New code
-//for(int i =0;i< categories.size();i++){
-//	out.print("<div class='card catCard'><a href='"+request.getContextPath()+"/GoProductListing?category="+categories.get(i)+"'>");
-//	out.print("<img src='."+categoriesImg.get(i)+"' class='card-img-top catIcon' alt='Category Image' ></a>");
-//	out.print("<div class='card-body'><h5 class='card-title text-white'><a href='"+request.getContextPath()+"/GoProductListing?category="+categories.get(i)+"'>"+categories.get(i).toUpperCase()+"</a></h5></div></div>");
-//}
+for(int i =0;i< categories.size();i++){
+	out.print("<div class='card catCard'><a href='"+request.getContextPath()+"/GoProductListing?category="+categories.get(i)+"'>");
+	out.print("<img src='"+request.getContextPath()+"/CA1/"+categoriesImg.get(i)+"' class='card-img-top catIcon' alt='Category Image' ></a>");
+	out.print("<div class='card-body'><h5 class='card-title text-white'><a href='"+request.getContextPath()+"/GoProductListing?category="+categories.get(i)+"'>"+categories.get(i).toUpperCase()+"</a></h5></div></div>");
+}
 %>
 </div>
 </div>
@@ -149,7 +125,7 @@ i++;
         "<div class=\"col mb-4\">" +
           "<div class=\"card cardProduct \">" +
 		      "<a href='"+request.getContextPath()+"/GoProductDetail?productId="+product.getProductId()+"'>"+
-                "<img src='."+product.getImageLocation()+"' class=\"card-img-top card-all-cat mx-auto\" alt=\"random products\">" +
+                "<img src='"+request.getContextPath()+"/CA1/"+product.getImageLocation()+"' class=\"card-img-top card-all-cat mx-auto\" alt=\"random products\">" +
             "<div class=\"card-body card-body-random-products\">" +
                 "<h5 class=\"card-title \">"+product.getProductName()+"</h5>" +
                 "<p class=\"card-text\">"+String.format("%.2f", product.getCostPrice())+"</p>" +

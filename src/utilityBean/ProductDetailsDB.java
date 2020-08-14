@@ -139,6 +139,28 @@ public class ProductDetailsDB {
 		return categories;
 	}
 	
+	// Select all available products
+		public ArrayList<String> getProductNames() {
+			ArrayList<String> productName = new ArrayList<String>();
+			try {
+		           Class.forName("com.mysql.jdbc.Driver");
+			         String connURL = "jdbc:mysql://us-cdbr-east-02.cleardb.com:3306/heroku_ec924e2e031aaa6?user=bd75cdad57c09f&password=75b47259&serverTimezone=UTC";
+
+		          Connection conn = DriverManager.getConnection(connURL); 
+		          String sqlStr = "SELECT DISTINCT productName FROM product";
+
+		    		PreparedStatement pstmt = conn.prepareStatement(sqlStr);
+		    		ResultSet rs = pstmt.executeQuery();	          
+		          while (rs.next()) {
+		        	  productName.add(rs.getString("productName"));
+		          }	        
+		          conn.close();
+		     } catch (Exception e) {
+		        System.err.println("Error :" + e);
+		     }
+			return productName;
+		}
+	
 	// Select random products
 	public ArrayList<ProductDetails> getRandomProducts() {
 		ArrayList<ProductDetails> products = new ArrayList<ProductDetails>();
@@ -400,5 +422,99 @@ public class ProductDetailsDB {
 			     }
 				return products;
 			}
-	
+			//get product details based on stock
+						public ArrayList<ProductDetails> getProductDetailsStock(int stock, int pg) {
+							ProductDetails product;
+							ArrayList<ProductDetails> products = new ArrayList<ProductDetails>();
+							
+							int startRow = pg*10-10;
+							try {
+						           Class.forName("com.mysql.jdbc.Driver");
+							         String connURL = "jdbc:mysql://us-cdbr-east-02.cleardb.com:3306/heroku_ec924e2e031aaa6?user=bd75cdad57c09f&password=75b47259&serverTimezone=UTC";
+
+
+						          Connection conn = DriverManager.getConnection(connURL); 
+						          String sqlStr = "SELECT * FROM product WHERE stockQuantity < ? order by stockQuantity desc LIMIT ?,10";
+
+						    		PreparedStatement pstmt = conn.prepareStatement(sqlStr);
+						    		pstmt.setInt(1, stock);
+						    		pstmt.setInt(2, startRow);
+						    		ResultSet rs = pstmt.executeQuery();	          
+						          while (rs.next()) {
+						        	  product = new ProductDetails();
+						        	  product.setProductId(rs.getInt("productId"));
+						        	  product.setProductName(rs.getString("productName"));
+						        	  product.setCostPrice(rs.getDouble("costPrice"));
+						        	  product.setRetailPrice(rs.getDouble("retailPrice"));
+						        	  product.setStockQuantity(rs.getInt("stockQuantity"));
+						        	  product.setProductCategory(rs.getString("productCategory"));
+						              products.add(product);
+						          }	        
+						          conn.close();
+						     } catch (Exception e) {
+						        System.err.println("Error :" + e);
+						     }
+							System.out.println("Size of products in ProductDetailsDB "+products.size());
+							return products;
+			
+						}
+						
+						
+						// Get count of product based on stock
+						public double getProductCountStock(int stock) {
+							double count = 0;
+							try {
+						           Class.forName("com.mysql.jdbc.Driver");
+							         String connURL = "jdbc:mysql://us-cdbr-east-02.cleardb.com:3306/heroku_ec924e2e031aaa6?user=bd75cdad57c09f&password=75b47259&serverTimezone=UTC";
+
+						          Connection conn = DriverManager.getConnection(connURL); 
+						          String sqlStr = "SELECT COUNT(*) count FROM product Where stockQuantity < ?";
+
+						    		PreparedStatement pstmt = conn.prepareStatement(sqlStr);
+						    		pstmt.setInt(1, stock);
+
+						    		ResultSet rs = pstmt.executeQuery();	          
+						          if (rs.next()) {
+						        	  count = (double)rs.getInt("count");
+						          }	        
+						          conn.close();
+						     } catch (Exception e) {
+						        System.err.println("Error :" + e);
+						     }
+							return count;
+						}
+						
+						//get top 10 best selling products
+						public ArrayList<ProductDetails> getTop10Products() {
+							ProductDetails product;
+							ArrayList<ProductDetails> products = new ArrayList<ProductDetails>();
+							
+							try {
+						           Class.forName("com.mysql.jdbc.Driver");
+							         String connURL = "jdbc:mysql://us-cdbr-east-02.cleardb.com:3306/heroku_ec924e2e031aaa6?user=bd75cdad57c09f&password=75b47259&serverTimezone=UTC";
+
+
+						          Connection conn = DriverManager.getConnection(connURL); 
+						          String sqlStr = "select p.*, CAST(SUM(o.totalPrice) AS UNSIGNED)  as 'Total Sales', SUM(od.quantity) as 'Quantity Sold' From product p inner join orderdetails od on od.productId = p.productId inner join heroku_ec924e2e031aaa6.order o on o.orderId = od.orderId Where o.status = 'paid' GROUP BY p.productName order by od.quantity, 'Total Sales' desc";
+
+						    		PreparedStatement pstmt = conn.prepareStatement(sqlStr);
+						    		ResultSet rs = pstmt.executeQuery();	          
+						          while (rs.next()) {
+						        	  product = new ProductDetails();
+						        	  product.setProductName(rs.getString("p.productName"));
+						        	  product.setCostPrice(rs.getDouble("p.costPrice"));
+						        	  product.setRetailPrice(rs.getDouble("Total Sales"));
+						        	  product.setProductCategory(rs.getString("p.productCategory"));
+						        	  product.setStockQuantity(rs.getInt("Quantity Sold"));
+
+						              products.add(product);
+						          }	        
+						          conn.close();
+						     } catch (Exception e) {
+						        System.err.println("Error :" + e);
+						     }
+							System.out.println("Size of products in ProductDetailsDB "+products.size());
+							return products;
+			
+						}
 }

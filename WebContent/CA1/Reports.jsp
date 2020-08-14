@@ -7,11 +7,12 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Products</title>
+<title>Reports</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-<link rel="stylesheet" type="text/css" href="./CA1/css/productTable.css">
+<link rel="stylesheet" type="text/css" href="./CA1/css/productTable.css?v=2">
 </head>
 <body>
+
 
 <nav class="navbar navbar-expand-lg navbar-custom navbar-dark ">
  		 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -42,74 +43,82 @@
 </nav>
 
 <div class="container text-center">
-<h1>Products in the database</h1>
-
-<!-- This button will allow the user to add new products into the database -->
-<a class='btn btn-warning' href='./AddProductPage'>Add new item</a>
-<div class="container text-right">
-<form action="./GoProductTable">
-<input type="text" name="productSearch"  value="<%= request.getAttribute("ProductSearch") != null?request.getAttribute("ProductSearch") : "Enter Product Name" %> " placeholder="Enter Product Name"/>
-<input type="submit" class="submit bg-warning" value="Search"/>
-</form>
+<h1>Reports</h1>
 <br>
-</div>
-<table class="table table-striped table-hover" > <!-- All products will be pushed into this table -->
-<tr>
-<th>No.</th>
-<th>Product Name</th>
-<th>Cost Price</th>
-<th>Retail Price</th>
-<th>Stock Quantity</th>
-<th>Category</th>
-<th colspan="2">Product Options</th>
+<div class="row">
+    <div class="col-sm">
+      <h2>Customers</h2>
+    	<div class="card">
+ 		 <div class="card-body">
+     	 <a href='./ReportsPage?report=customer'>Listing of Customers by Address</a>
+ 		 </div>
+		</div>
+    </div>
 
-</tr>
-<%    
-int pg= (int)request.getAttribute("pg");
-int count = pg*10-10+1;
 
-ArrayList<ProductDetails> products = (ArrayList<ProductDetails>)request.getAttribute("products");
-	for(ProductDetails product: products){
-       out.print("<tr>"+
-       "<td>"+count+"</td>"+
-       "<td>"+product.getProductName()+"</td>"+
-       "<td>"+String.format("%.2f",product.getCostPrice())+"</td>"+
-       "<td>"+String.format("%.2f",product.getRetailPrice())+"</td>"+
-       "<td>"+product.getStockQuantity()+"</td>"+
-       "<td>"+product.getProductCategory()+"</td>"+
-       "<td><a class='btn btn-warning' href='./GoEditProduct?productId="+product.getProductId()+"'\">Edit</button></td>"+
-       "<td><a class='btn btn-warning' href='./GoDeleteProduct?productId="+product.getProductId()+"'\">Delete</button></td>"+
-       "</tr>");
+    <div class="col-sm">
+      <h2>Products</h2>
+
+        <div class="card">
+        <div class="card-body">
+     		 <form action='./ReportsPage'>
+      		    <label>Products with Stock Quantity Lower Than :</label>
+      			<input type='number' name="stock" placeholder="Enter Stock Quantity" required>
+     		 	<input type='submit' class="submit bg-warning" value = 'Search'>
+     		 </form>
+       </div>
+       </div>
        
-       count++;
-	}
-
-%>
-</table>
-
-<!-- Use this button to access to the next 10 rows in the second page -->
-<div class='pagination'>
-<%
-	String productSearch = (String)request.getAttribute("ProductSearch");
-	double noOfProducts;
-	noOfProducts = (double)request.getAttribute("productCount");
-   
-        double Pages = (double)Math.ceil((double) noOfProducts/(double)10.0);
-
-        for(int i = 0 ; i < Pages; i++){
-        	System.out.print(productSearch);
-        	if(productSearch == null){
-
-   			 out.print("<a  class='active' href='GoProductTable?pg="+(i+1)+"'>"+ (i+1) +"</a>");
-        	}
-        	else{
-        	     out.print("<a  class='active' href='GoProductTable?productSearch="+productSearch+"&pg="+(i+1)+"'>"+ (i+1) +"</a>");	          
-
-        	}
+		<div class="card">
+        <div class="card-body">
+              <a href='./ReportsPage?report=product2'>Top 10 Best Selling Product</a>
+        </div>
+        </div>
         
-        }
-%>
+	</div>
+
+    <div class="col-sm">
+          <h2>Orders</h2>
+          
+          <div class="card">
+  			<div class="card-body">
+  			<form action='./ReportsPage'>
+      		  <label>Customers who bought:</label>
+      		  <div class="wrapper">
+      		  
+      <select name="products" class="form-control selection" size="5" required>
+        <%
+        ArrayList<String> productNames = (ArrayList<String>)request.getAttribute("productNames");
+		for (String productName : productNames) {    
+    	out.print("<option>"+productName.toUpperCase()+"</option>");
+		}
+  		%>  
+    </select>
+    </div>
+          	<input type='submit' class="submit bg-warning" value = 'Search'>
+      		</form>
+        </div>
+		</div>
+    
+          <div class="card">
+  			<div class="card-body">
+     	      	<a href='./ReportsPage?report=order1'>Top 10 Customers Who Made The Most Purchase</a>
+  			</div>
+			</div>
+			    
+          <div class="card">
+  			<div class="card-body">
+     	      	<a href='./ReportsPage?report=order2'>Listing of Orders by Date</a>
+  			</div>
+			</div>
+    </div>
+    
+  </div>
+  
 </div>
+
+
+
 </div>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>

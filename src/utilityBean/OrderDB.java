@@ -137,4 +137,66 @@ public class OrderDB {
 	     }
 		return totalPrice;
 	}
+	
+	// Get the orders from database
+		public ArrayList<Order> getOrdersbyDate(int pg) {
+			ArrayList<Order> orders = new ArrayList<Order>();
+			Order order;
+			int startRow = pg*10-10;
+
+			try {
+		          Class.forName("com.mysql.jdbc.Driver");
+			      String connURL = "jdbc:mysql://us-cdbr-east-02.cleardb.com:3306/heroku_ec924e2e031aaa6?user=bd75cdad57c09f&password=75b47259&serverTimezone=UTC";
+
+		          Connection conn = DriverManager.getConnection(connURL); 
+		          String sqlStr = "SELECT * from `order` where status = 'paid' order by orderDate asc LIMIT ?,10";
+
+		    		PreparedStatement pstmt = conn.prepareStatement(sqlStr);
+		    		pstmt.setInt(1, startRow);
+
+		    		ResultSet rs = pstmt.executeQuery();	          
+		    		while(rs.next()) {
+		    			order = new Order();
+		    			order.setOrderId(rs.getInt("orderId"));
+		    			order.setOrderDate(rs.getString("orderDate"));
+		    			order.setStatus(rs.getString("status"));
+		    			order.setTotalPrice(rs.getDouble("totalPrice"));
+		    			order.setDiscountId(rs.getInt("discountId"));
+		    			order.setCustomerId(rs.getInt("customerId"));
+		    			orders.add(order);
+		    		}
+		    		
+		    		conn.close();
+		    		
+		     } catch (Exception e) {
+		        System.err.println("Error :" + e);
+		     }
+			return orders;
+		}
+		
+		// Get the count of orders from database by date
+		public double getOrdersbyDateCount() {
+			double count = 0;
+
+			try {
+		          Class.forName("com.mysql.jdbc.Driver");
+			      String connURL = "jdbc:mysql://us-cdbr-east-02.cleardb.com:3306/heroku_ec924e2e031aaa6?user=bd75cdad57c09f&password=75b47259&serverTimezone=UTC";
+
+		          Connection conn = DriverManager.getConnection(connURL); 
+		          String sqlStr = "SELECT COUNT(*) as count  from `order` where status = 'paid' order by orderDate asc";
+
+		    		PreparedStatement pstmt = conn.prepareStatement(sqlStr);
+		    		ResultSet rs = pstmt.executeQuery();	          
+		    		while(rs.next()) {
+			        	  count = (double)rs.getInt("count");
+
+		    		}
+		    		
+		    		conn.close();
+		    		
+		     } catch (Exception e) {
+		        System.err.println("Error :" + e);
+		     }
+			return count;
+		}
 }

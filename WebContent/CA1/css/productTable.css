@@ -36,3 +36,8 @@ table{
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
 }
+
+ .wrapper .selection{
+    overflow-x: scroll;
+    overflow-y: scroll;
+ }
