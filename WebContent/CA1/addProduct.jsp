@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="valueBean.ProductDetails" %>
+<%@ page import="valueBean.ProductDetails" %><%@page import ="valueBean.UserDetails" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,6 +11,15 @@
 <link rel="stylesheet" type="text/css" href="./CA1/css/addProduct.css">
 </head>
 <body>
+<%
+try{
+	UserDetails user = (UserDetails)session.getAttribute("user");
+	if(user.getRole().equals("M")) response.sendRedirect("./CA1/errorPage.jsp?type=AccessDenied");
+}catch(Exception e){
+	 response.sendRedirect("./CA1/errorPage.jsp?type=AccessDenied");
+}
+
+%>
 <div class="d-flex justify-content-center text-center">
 <h2 class="text-warning">Add Product</h2>
 <form  action="./AddProduct" method="post" enctype="multipart/form-data">

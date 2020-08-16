@@ -11,13 +11,18 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Purchase Order</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+<link rel="stylesheet" type="text/css" href="./CA1/css/Payment.css?v=1">
 </head>
 <body>
+<div class="d-flex justify-content-center text-center text-white">
+<form>
 <%
 	int orderId = Integer.parseInt(request.getParameter("orderId"));
 	ArrayList<OrderDetails> orderDetailsAry = (ArrayList<OrderDetails>)request.getAttribute("orderDetails");
 	if(orderDetailsAry.size() == 0){
-		out.print("this order is empty");
+		out.print("<h1 class='text-white'>this order is empty</h1><br>");
 	}else{
 		for(OrderDetails orderDT : orderDetailsAry){
 			out.print("<div>"+
@@ -32,6 +37,11 @@
 	
 %>
 <div>Total Price = <%= totalPriceStr%></div>
+</form>
+</div>
+<div class="d-flex justify-content-center text-center text-white">
+
+
 <%
 	String status = (String)request.getAttribute("status");
 	if(status.equals("Pending")){		
@@ -41,10 +51,10 @@
 		LocalDate tomorrow = now.plusDays(1);
 		String tomorrowStr = dtf.format(tomorrow);
 		
-		out.print("<form action='./Pay'>"+
-		"<input type='hidden' name='orderId' value='"+orderId+"'"+
+		out.print("<form action='./Pay'>"+"<h1 class='text-warning'>Checkout</h1>"+
+		"<input type='hidden' name='orderId' value='"+orderId+"'>"+
 				"<input type='text' name='ccName' placeholder='Name on Credit Card' required>"+
-		"<input type='text' name='ccNum' minlength='16' maxlength='16' pattern='\\d*' placeholder='Credit Card Number' required>"+
+		"<input type='text' name='ccNum' minlength='16' maxlength='16' pattern='\\d*' placeholder='Credit Card Number' required><br>"+
 		"<label>Credit Card Type</label>"+
 		"<select name='CCType' required>"+
 			"<option value='AE'>American Express</option>"+
@@ -64,5 +74,6 @@
 		);
 	}
 %>
+</div>
 </body>
 </html>

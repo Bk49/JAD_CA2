@@ -23,29 +23,33 @@
 		  <div class="collapse navbar-collapse" id="navbarSupportedContent">
   		  <ul class="navbar-nav mr-auto">
     		  <li class="nav-item active">
-    		    <a class="nav-link" href="./CA1/Home.jsp">Home <span class="sr-only">(current)</span></a>
+    		    <a class="nav-link" href="<%=request.getContextPath()%>/GoHome">Home <span class="sr-only">(current)</span></a>
     		  </li>
     		  <li class="nav-item dropdown">
     		    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-   		      Categories
+   		        Categories
     		    </a>
    		     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 <%
 try{
 ArrayList<String> categories = (ArrayList<String>)request.getAttribute("productCategories");
-
 for (String category : categories) {    
     // Style this line of code!
-    out.print("<a href='../CA2/GoProductListing?category="+category+"' class='dropdown-item'>"+category.toUpperCase()+"</a><br>");
+    out.print("<a href='"+request.getContextPath()+"/GoProductListing?category="+category+"' class='dropdown-item'>"+category.toUpperCase()+"</a><br>");
 }
 
 }catch(Exception e){
-	RequestDispatcher rd = request.getRequestDispatcher("./Home.jsp");
+	System.out.print("it works");
+	RequestDispatcher rd = request.getRequestDispatcher(request.getContextPath()+"/GoHome");
 	rd.forward(request, response);
 	}
-%>			
+
+%>
     		 </div>
   		    </li>
+  		      <li class="nav-item">
+    		    <a class="nav-link" href="<%=request.getContextPath()%>/GoShoppingCart">Cart <span class="sr-only">(current)</span></a>
+    		  </li>
  		   </ul>
    		 <form action="./SearchProduct" class="form-inline my-2 my-lg-0">
    		   <input class="form-control mr-sm-2" type="search" name="searchStr" placeholder="Search" aria-label="Search">
@@ -53,22 +57,22 @@ for (String category : categories) {
          </form>
    		 <ul  class="navbar-nav mr-right dropleft" style="margin-left:20px" >
          		 <li class="nav-item dropdown ">
-<%
+        <%
+	if(session.getAttribute("user")!=null){
 
-    if (session.getAttribute("user")!=null) {
-  	  
-  	  UserDetails user = (UserDetails)session.getAttribute("user");
-        String pfp = user.getPfp();
-        out.print("<a href='nav-link dropdown-toggle ' style='margin:0px' href='#' id='navbarDropdown' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'><img src='."+pfp+"' alt='userPfp' width=\"auto\" height=\"60px\"></a>");
-        out.print("<div class='dropdown-menu' aria-labelledby='navbarDropdown'>" +
-      "<a class='dropdown-item' href='./GoProfilePage'>Profile</a>" +
-"<div class='dropdown-divider'></div>" +
-   "<a class='dropdown-item' href='./CA1/logout.jsp'>Log Out</a>" +
- "</div>");
-    }else{
-  	  out.print("<a class=\"nav-link\" href='CA1/Login.jsp'>LOGIN</a>");
-    }
-
+		UserDetails user = (UserDetails)session.getAttribute("user");
+	        String pfp = user.getPfp();
+	        out.print("<a href='nav-link dropdown-toggle ' style='margin:0px' href='#' id='navbarDropdown' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'><img src='"+request.getContextPath()+"/CA1/"+pfp+"' alt='userPfp' width=\"auto\" height=\"60px\"></a>");
+	        out.print("<div class='dropdown-menu' aria-labelledby='navbarDropdown'>" +
+	      "<a class='dropdown-item' href='"+request.getContextPath()+"/GoProfilePage'>Profile</a>" +
+	    			"<div class='dropdown-divider'></div>" +
+		    	      "<a class='dropdown-item' href='"+request.getContextPath()+"/GoPurchaseHistory'>Purchase History</a>" +
+	"<div class='dropdown-divider'></div>" +
+	   "<a class='dropdown-item' href='"+request.getContextPath()+"/CA1/logout.jsp'>Log Out</a>" +
+	 "</div>");
+	}else{
+		out.print("<a class=\"nav-link\" href='"+request.getContextPath()+"/GetUserDetails'>LOGIN</a>");
+	}
 %>
 
      		 </li>

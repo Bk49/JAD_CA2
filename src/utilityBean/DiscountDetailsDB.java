@@ -162,4 +162,38 @@ public class DiscountDetailsDB {
 			return count;
 		}
 		
+		public DiscountDetails getDiscountValue(String discountCode) {
+			DiscountDetails discount = new DiscountDetails();
+			
+			
+
+		   try {
+	           Class.forName("com.mysql.jdbc.Driver");
+
+		         String connURL = "jdbc:mysql://us-cdbr-east-02.cleardb.com:3306/heroku_ec924e2e031aaa6?user=bd75cdad57c09f&password=75b47259&serverTimezone=UTC";
+
+		          Connection conn = DriverManager.getConnection(connURL); 
+
+		          String sqlStr = "SELECT * FROM discount WHERE discountCode = ?";
+		    		          
+		    		PreparedStatement pstmt = conn.prepareStatement(sqlStr);
+		    		pstmt.setString(1,discountCode);
+		    		ResultSet rs = pstmt.executeQuery();
+		    		if(rs.next()){
+		    			  discount.setDiscountId(rs.getInt("discountId"));
+			              discount.setDiscountCode(rs.getString("discountCode"));
+			              discount.setDiscountValue(rs.getDouble("discountValue"));
+			              discount.setDiscountType(rs.getString("discountType"));
+			              discount.setUsageLimit(rs.getInt("usageLimit"));
+			              discount.setUsageCount(rs.getInt("usageCount"));
+		    		}
+			          conn.close();
+
+		    		
+		     } catch (Exception e) {
+			        System.err.println("Error :" + e);
+		     }
+		   return discount;
+		}
+		
 }

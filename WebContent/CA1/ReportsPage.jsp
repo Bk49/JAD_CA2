@@ -15,7 +15,15 @@
 <link rel="stylesheet" type="text/css" href="./CA1/css/productTable.css">
 </head>
 <body>
+<%
+try{
+	UserDetails user1 = (UserDetails)session.getAttribute("user");
+	if(user1.getRole().equals("M")) response.sendRedirect("./CA1/errorPage.jsp?type=AccessDenied");
+}catch(Exception e){
+	 response.sendRedirect("./CA1/errorPage.jsp?type=AccessDenied");
+}
 
+%>
 <nav class="navbar navbar-expand-lg navbar-custom navbar-dark ">
  		 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
    			 <span class="navbar-toggler-icon"></span>

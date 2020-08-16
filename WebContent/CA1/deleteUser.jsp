@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ page import="java.sql.*" %>
-<%@page import="valueBean.UserDetails" %>
+<%@page import="valueBean.UserDetails" %><%@page import ="valueBean.UserDetails" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,10 +13,19 @@
 <body>
 <div class="container text-center">
 <%
+try{
+	UserDetails user1 = (UserDetails)session.getAttribute("user");
+	if(user1.getRole().equals("M")) response.sendRedirect("./CA1/errorPage.jsp?type=AccessDenied");
+}catch(Exception e){
+	 response.sendRedirect("./CA1/errorPage.jsp?type=AccessDenied");
+}
+
+%>
+<%
 UserDetails user = (UserDetails)request.getAttribute("user");
 
 out.print("<div><h1 class='text-warning'>Are you sure you want to delete this User?</h1>"+
-       	  		"<img src='."+user.getPfp()+"'alt='image'>"+
+       	  		"<img src='./CA1"+user.getPfp()+"'alt='image' style='height: 200px;width:auto;'>"+
                	"<div class='text-warning'>User Name:</div>"+
        		  	"<div class='text-white'>"+user.getName()+"</div>"+
                  "<div class='text-warning'>Password</div>"+
@@ -34,7 +43,7 @@ out.print("<div><h1 class='text-warning'>Are you sure you want to delete this Us
 		"</div>");
 %>
 <br>
-<a class="btn btn-warning" href='../CA2/DeleteUser?userId=<%= user.getUserId() %>'>Confirm Delete!</a>
+<a class="btn btn-warning" href='./DeleteUser?userId=<%= user.getUserId() %>'>Confirm Delete!</a>
 </div>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>

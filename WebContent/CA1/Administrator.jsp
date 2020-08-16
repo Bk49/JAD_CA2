@@ -21,6 +21,13 @@ String pfp="";
 String address="";
 String phoneNo = "";
 
+try{
+	if(user.getRole().equals("M")) response.sendRedirect("./CA1/errorPage.jsp?type=AccessDenied");
+}catch(Exception e){
+	 response.sendRedirect("./CA1/errorPage.jsp?type=AccessDenied");
+}
+
+
 if(user!=null){
 	name= user.getName();
 	email= user.getEmail();
@@ -41,19 +48,19 @@ if(user!=null){
     		    <a class="nav-link" href="./Administrator.jsp">Administrator <span class="sr-only">(current)</span></a>
     		  </li>
     		  <li class="nav-item active">
-    		    <a class="nav-link" href="../GoHome">Home <span class="sr-only">(current)</span></a>
+    		    <a class="nav-link" href="<%= request.getContextPath() %>/GoHome">Home <span class="sr-only">(current)</span></a>
     		  </li>
     		  <li class="nav-item active">
-    		    <a class="nav-link" href="../GoDiscountTable">Edit Discounts<span class="sr-only">(current)</span></a>
+    		    <a class="nav-link" href="<%= request.getContextPath() %>/GoDiscountTable">Edit Discounts<span class="sr-only">(current)</span></a>
     		  </li>
     		  <li class="nav-item active">
-    		    <a class="nav-link" href="../GoProductTable">Edit Products<span class="sr-only">(current)</span></a>
+    		    <a class="nav-link" href="<%= request.getContextPath() %>/GoProductTable">Edit Products<span class="sr-only">(current)</span></a>
     		  </li>
     		  <li class="nav-item active">
-    		    <a class="nav-link" href="../GoUserTable">Edit Users<span class="sr-only">(current)</span></a>
+    		    <a class="nav-link" href="<%= request.getContextPath() %>/GoUserTable">Edit Users<span class="sr-only">(current)</span></a>
     		  </li>
     		  <li class="nav-item active">
-    		    <a class="nav-link" href="../Reports">Reports<span class="sr-only">(current)</span></a>
+    		    <a class="nav-link" href="<%= request.getContextPath() %>/Reports">Reports<span class="sr-only">(current)</span></a>
     		  </li>
  		   </ul>
   </div>
@@ -70,7 +77,7 @@ if(user!=null){
         	   <p class="card-title text-white">Name: <%=name %></p>
        	       <p class="card-title text-white">Email: <%=email %></p>
        	       <p class="card-title text-white">Address: <%=address %></p>
-      	       <p class="card-title text-white">Phone No: <%=phoneNo %></p>
+      	       <p class="card-title text-white">Phone No: <%=phoneNo %></p>      	       
          </div>
 	    </div>
 	    

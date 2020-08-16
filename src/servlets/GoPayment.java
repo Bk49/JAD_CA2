@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import utilityBean.OrderDB;
 import utilityBean.OrderDetailsDB;
 import utilityBean.PaymentDB;
+import utilityBean.ProductDetailsDB;
 import valueBean.CartDetails;
 import valueBean.PaymentDetails;
 import valueBean.UserDetails;
@@ -39,15 +40,27 @@ public class GoPayment extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
+		String link = "";
+		
 		// Set the totalPrice to be used by the payments page
 		HttpSession session = request.getSession();
 		double totalPrice = (double)session.getAttribute("totalPrice");
 				
 		// Insert a new order and orderDetails according to the order
 		UserDetails user = (UserDetails)session.getAttribute("user");
-		if(user== null) {
-			response.sendRedirect("./CA1/Login");
+		try {
+			if(user == null) {
+				System.out.print(" nooot s  ");
+
+				 link = "CA1/Login.jsp";
+			}
+		}catch(Exception e) {
+			System.out.print("loged  e");
+
+			 link = "CA1/Login.jsp";
 		}
+		
+
 		ArrayList<CartDetails> cart = (ArrayList<CartDetails>)session.getAttribute("cart");
 		
 			try {
@@ -64,7 +77,8 @@ public class GoPayment extends HttpServlet {
 				OrderDetailsDB orderDTDB =  new OrderDetailsDB();
 				int count2 = orderDTDB.bulkInsertOD(orderId, cart);
 				if(count2 == 0) System.out.println("orderDTDB insert bulk had failed");
-				
+				link = "CA1/Payment.jsp";
+
 			}catch(Exception e) {
 				System.out.println(e);
 			}
@@ -73,9 +87,10 @@ public class GoPayment extends HttpServlet {
 		PaymentDB paymentDB = new PaymentDB();
 		ArrayList<PaymentDetails> payments = paymentDB.getPaymentDetails(user.getUserId());
 		request.setAttribute("payments", payments);
-			
+
+
 		// Forwards to Payment.jsp
-		RequestDispatcher rd = request.getRequestDispatcher("CA1/Payment.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher(link);
 		rd.forward(request, response);
 	}
 

@@ -2,7 +2,7 @@
     pageEncoding="ISO-8859-1"%>
        <%@page import="java.sql.*" %>
        <%@page import="valueBean.ProductDetails" %>
-       <%@ page import="java.util.ArrayList" %>
+       <%@ page import="java.util.ArrayList" %><%@page import ="valueBean.UserDetails" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,6 +12,15 @@
 <link rel="stylesheet" type="text/css" href="./CA1/css/addProduct.css">
 </head>
 <body>
+<%
+try{
+	UserDetails user = (UserDetails)session.getAttribute("user");
+	if(user.getRole().equals("M")) response.sendRedirect("./CA1/errorPage.jsp?type=AccessDenied");
+}catch(Exception e){
+	 response.sendRedirect("./CA1/errorPage.jsp?type=AccessDenied");
+}
+
+%>
 <%
 ProductDetails product = (ProductDetails)request.getAttribute("product"); 
 

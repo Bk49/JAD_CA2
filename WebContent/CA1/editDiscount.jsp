@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     <%@page import="java.sql.*" %>
-    <%@page import="valueBean.DiscountDetails" %>
+    <%@page import="valueBean.DiscountDetails" %><%@page import ="valueBean.UserDetails" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,6 +11,15 @@
 <link rel="stylesheet" type="text/css" href="./CA1/css/addProduct.css">
 </head>
 <body>
+<%
+try{
+	UserDetails user = (UserDetails)session.getAttribute("user");
+	if(user.getRole().equals("M")) response.sendRedirect("./CA1/errorPage.jsp?type=AccessDenied");
+}catch(Exception e){
+	 response.sendRedirect("./CA1/errorPage.jsp?type=AccessDenied");
+}
+
+%>
 <%
 DiscountDetails discount= (DiscountDetails)request.getAttribute("discount"); 
 
@@ -25,7 +34,7 @@ int usageCount = discount.getUsageCount();
 <div class="d-flex justify-content-center text-center">
 <h2 class="text-warning">Edit Product</h2>
 
-<form action='../CA2/EditDiscount' method="post">
+<form action='./EditDiscount' method="post">
 
 <!-- The user will not see the line 42 input field! -->
 <input type="hidden" name="discountId" value="<%=discountId %>"/>
@@ -41,8 +50,13 @@ int usageCount = discount.getUsageCount();
 </div>
 <br>
 <div>
-<label>Type of Discount</label><br>
-<input type="text" name="discountType" value="<%=discountType%>" required/>
+      <label class='text-white'>DISCOUNT TYPE</label>
+      <select id="discountType" name="discountType" class="form-control" required>
+		<option><%=discountType%></option>
+		<option>DIRECT</option>
+		<option>PERCENTAGE</option>
+
+      </select>
 </div>
 <br>
 <div>

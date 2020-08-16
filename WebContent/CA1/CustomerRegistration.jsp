@@ -11,26 +11,27 @@
 <body>
 <div class="d-flex justify-content-center text-center">
 
-	<form action="../InsertUser" method="post"><br>
+	<form action="./InsertUser" method="post"><br>
 		<h2 class="text-warning">SHOPMANIA REGISTER</h2>
 		<input type="text" name="fname" placeholder="First Name" required/>
 		<input type="text" name="lname" placeholder="Last Name" required/>
 		<input type="text" name="email" placeholder="Email" required/>
 		<input type="password" name="pwd" placeholder="Password" required/>
 		<input type="password" name="pwdc" placeholder="Confirm Password" required/>
-		<input type="text" name="address" placeholder="Address"/>
+		<input type="text" name="address" placeholder="Address"/ required>
 		<input  type='tel' pattern='[0-9]{8,14}' name="phoneNo" placeholder="Phone Number"/>
 			<%
 			String errorCode = request.getParameter("errorCode");
 				if("invalidPw".equals(errorCode)){
 				out.print("<p class=\"text-danger\">Your password inputs in both fields does not tally!</p>");
+				}
 				if("invalidEmail".equals(errorCode)){
 				out.print("<p class=\"text-danger\">The email has been used!<br>Server error!</p>");
 				}
-			}
+			
 			%>;
 		<input type="submit" class="submit bg-warning" value="SUBMIT"/>
-		<p class="text-white">Already have an account? <a href="./CA1/Login.jsp">Sign in here</a></p>
+		<p class="text-white">Already have an account? <a href="./GetUserDetails">Sign in here</a></p>
 		
 
 			

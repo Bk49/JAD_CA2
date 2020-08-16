@@ -1,16 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
        <%@page import="java.sql.*" %>
-       <%@page import="valueBean.UserDetails" %>
+       <%@page import="valueBean.UserDetails" %><%@page import ="valueBean.UserDetails" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
 <title>Edit User</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-<link rel="stylesheet" type="text/css" href="./css/addProduct.css">
+<link rel="stylesheet" type="text/css" href="./CA1/css/addProduct.css">
 </head>
 <body>
+<%
+try{
+	UserDetails user1 = (UserDetails)session.getAttribute("user");
+	if(user1.getRole().equals("M")) response.sendRedirect("./CA1/errorPage.jsp?type=AccessDenied");
+}catch(Exception e){
+	 response.sendRedirect("./CA1/errorPage.jsp?type=AccessDenied");
+}
+
+%>
 <%
 UserDetails user = (UserDetails)request.getAttribute("user");
 int userId = user.getUserId();
@@ -42,9 +51,14 @@ String phoneNo = user.getPhoneNo();
   </div>
   
   <div class="form-row">
-    <div class="form-group col-md-6">
-      <label>Role</label><br>
-      <input type="text" name="role"  value="<%= role %>" required/>
+          <div class="form-group  col-md-6">
+      <label>Role</label>
+      <select id="role" name="role" class="form-control" required>
+		<option><%= role %></option>
+		<option>M</option>
+		<option>A</option>
+
+      </select>
     </div>
      <div class="form-group col-md-6">
       <label>Profile Picture Path</label><br>
@@ -60,7 +74,8 @@ String phoneNo = user.getPhoneNo();
   
     <div class="form-group">
     <label>Phone Number</label><br>
-		<input  type="text" name="phoneNo" value="<%= phoneNo %>"/>
+	<input  type='tel' pattern='[0-9]{8,14}' name="phoneNo" value="<%= phoneNo %>" />
+		
   </div>
   
 	<input type="submit" class="submit bg-warning" value="EDIT USER"/>

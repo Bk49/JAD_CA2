@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ page import="java.sql.*" %>
-<%@page import="valueBean.ProductDetails" %>
+<%@page import="valueBean.ProductDetails" %><%@page import ="valueBean.UserDetails" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,12 +13,21 @@
 <body>
 <div class="container text-center">
 <%
+try{
+	UserDetails user = (UserDetails)session.getAttribute("user");
+	if(user.getRole().equals("M")) response.sendRedirect("./CA1/errorPage.jsp?type=AccessDenied");
+}catch(Exception e){
+	 response.sendRedirect("./CA1/errorPage.jsp?type=AccessDenied");
+}
+
+%>
+<%
 ProductDetails product = (ProductDetails)request.getAttribute("product");
 int productId = product.getProductId();
 
 
 out.print("<div><h1 class='text-warning'>Are you sure you want to delete this product?</h1>"+
-       			"<img src='."+product.getImageLocation()+"'alt='image'>"+
+       			"<img src='./CA1"+product.getImageLocation()+"'alt='image' style='height: 200px;width:auto;'>"+
                	"<div class='text-warning'>Product Name:</div>"+
        			"<div class='text-white'>"+product.getProductName()+"</div>"+
                  "<div class='text-warning'>Brief Description: </div>"+

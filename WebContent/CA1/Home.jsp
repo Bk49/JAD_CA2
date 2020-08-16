@@ -24,7 +24,7 @@
 		  <div class="collapse navbar-collapse" id="navbarSupportedContent">
   		  <ul class="navbar-nav mr-auto">
     		  <li class="nav-item active">
-    		    <a class="nav-link" href="./Home.jsp">Home <span class="sr-only">(current)</span></a>
+    		    <a class="nav-link" href="<%=request.getContextPath()%>/GoHome">Home <span class="sr-only">(current)</span></a>
     		  </li>
     		  <li class="nav-item dropdown">
     		    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -48,6 +48,9 @@ for (String category : categories) {
 %>
     		 </div>
   		    </li>
+  		      <li class="nav-item">
+    		    <a class="nav-link" href="<%=request.getContextPath()%>/GoShoppingCart">Cart <span class="sr-only">(current)</span></a>
+    		  </li>
  		   </ul>
    		 <form action="./SearchProduct" class="form-inline my-2 my-lg-0">
    		   <input class="form-control mr-sm-2" type="search" name="searchStr" placeholder="Search" aria-label="Search">
@@ -60,11 +63,13 @@ for (String category : categories) {
 
 		UserDetails user = (UserDetails)session.getAttribute("user");
 	        String pfp = user.getPfp();
-	        out.print("<a href='nav-link dropdown-toggle ' style='margin:0px' href='#' id='navbarDropdown' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'><img src='."+pfp+"' alt='userPfp' width=\"auto\" height=\"60px\"></a>");
+	        out.print("<a href='nav-link dropdown-toggle ' style='margin:0px' href='#' id='navbarDropdown' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'><img src='"+request.getContextPath()+"/CA1/"+pfp+"' alt='userPfp' width=\"auto\" height=\"60px\"></a>");
 	        out.print("<div class='dropdown-menu' aria-labelledby='navbarDropdown'>" +
 	      "<a class='dropdown-item' href='"+request.getContextPath()+"/GoProfilePage'>Profile</a>" +
+	    			"<div class='dropdown-divider'></div>" +
+		    	      "<a class='dropdown-item' href='"+request.getContextPath()+"/GoPurchaseHistory'>Purchase History</a>" +
 	"<div class='dropdown-divider'></div>" +
-	   "<a class='dropdown-item' href='./logout.jsp'>Log Out</a>" +
+	   "<a class='dropdown-item' href='"+request.getContextPath()+"/CA1/logout.jsp'>Log Out</a>" +
 	 "</div>");
 	}else{
 		out.print("<a class=\"nav-link\" href='"+request.getContextPath()+"/GetUserDetails'>LOGIN</a>");
@@ -114,7 +119,7 @@ for(int i =0;i< categories.size();i++){
 
 <%
    		out.print("<div class=\"container margin\">");
-   		out.print("<h2 class=\"text-warning text-center\">All Products</h2>");
+   		out.print("<h2 class=\"text-warning text-center\">Products</h2>");
    		out.print("<div class=\"row row-cols-2 row-cols-md-3\">");
    		
    		ArrayList<ProductDetails> products =(ArrayList<ProductDetails>) request.getAttribute("randomProducts");

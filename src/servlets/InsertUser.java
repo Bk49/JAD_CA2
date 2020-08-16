@@ -33,7 +33,12 @@ public class InsertUser extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
+		if(request.getParameter("email") == null) {
+			RequestDispatcher rd = request.getRequestDispatcher("CA1/CustomerRegistration.jsp");
+			rd.forward(request, response);
+			
+		}else {
+			
 		try {
 		String name = request.getParameter("fname")+" "+request.getParameter("lname");
 		String email = request.getParameter("email");
@@ -61,7 +66,11 @@ public class InsertUser extends HttpServlet {
 		int count = userDB.insertUser(user);
 		
 		System.out.print(count+" row affected");
-		
+		if(count == 0) {
+			
+			RequestDispatcher rd = request.getRequestDispatcher("CA1/CustomerRegistration.jsp?errorCode=invalidEmail");
+			rd.forward(request, response);	
+		}
 		HttpSession session=request.getSession(); 
 		session.setAttribute("user", user);
 		}catch(Exception e){
@@ -69,7 +78,7 @@ public class InsertUser extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("CA1/CustomerRegistration.jsp?errorCode=invalidEmail");
 			rd.forward(request, response);	
 		}
-		
+		}
 		// Send Redirect to Home.jsp
 		response.sendRedirect("./GoHome");
 	}

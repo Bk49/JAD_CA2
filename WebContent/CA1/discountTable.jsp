@@ -2,7 +2,7 @@
     pageEncoding="ISO-8859-1"%>
         <%@page import="java.sql.*" %>
         <%@page import="valueBean.DiscountDetails" %>
-        <%@page import="java.util.ArrayList" %>
+        <%@page import="java.util.ArrayList" %><%@page import ="valueBean.UserDetails" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,30 +12,40 @@
 <link rel="stylesheet" type="text/css" href="./CA1/css/productTable.css">
 </head>
 <body>
+<%
+try{
+	UserDetails user = (UserDetails)session.getAttribute("user");
+	if(user.getRole().equals("M")) response.sendRedirect("./CA1/errorPage.jsp?type=AccessDenied");
+}catch(Exception e){
+	 response.sendRedirect("./CA1/errorPage.jsp?type=AccessDenied");
+}
 
+%>
 <nav class="navbar navbar-expand-lg navbar-custom navbar-dark ">
  		 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
    			 <span class="navbar-toggler-icon"></span>
  		 </button>
 		  <div class="collapse navbar-collapse" id="navbarSupportedContent">
   		  <ul class="navbar-nav mr-auto">
+  		    		      <li class="nav-item active">
+    		    <a class="nav-link" href="./CA1/Administrator.jsp">Administrator <span class="sr-only">(current)</span></a>
+    		  </li>
     		  <li class="nav-item active">
     		    <a class="nav-link" href="./GoHome">Home <span class="sr-only">(current)</span></a>
     		  </li>
     		  <li class="nav-item active">
-    		    <a class="nav-link" href="./GoDiscountTable?pg=1">Edit Discounts<span class="sr-only">(current)</span></a>
+    		    <a class="nav-link" href="./GoDiscountTable">Edit Discounts<span class="sr-only">(current)</span></a>
     		  </li>
     		  <li class="nav-item active">
-    		    <a class="nav-link" href="./GoProductTable?pg=1">Edit Products<span class="sr-only">(current)</span></a>
+    		    <a class="nav-link" href="./GoProductTable">Edit Products<span class="sr-only">(current)</span></a>
     		  </li>
     		  <li class="nav-item active">
-    		    <a class="nav-link" href="">Edit Users<span class="sr-only">(current)</span></a>
+    		    <a class="nav-link" href="./GoUserTable">Edit Users<span class="sr-only">(current)</span></a>
     		  </li>
     		  <li class="nav-item active">
-    		    <a class="nav-link" href="">Orders<span class="sr-only">(current)</span></a>
+    		    <a class="nav-link" href="./Reports">Reports<span class="sr-only">(current)</span></a>
     		  </li>
  		   </ul>
-   		 
   </div>
 </nav>
 <div class="container text-center">
@@ -50,7 +60,6 @@
 <th>No.</th>
 <th>Discount Code</th>
 <th>Discount Price</th>
-<th>Discount Amount</th>
 <th>Usage Limit</th>
 <th>Number of uses</th>
 <th colspan="2">Discount Options</th>
@@ -78,11 +87,11 @@ String discountPrice;
        out.print("<tr>"+
        "<td>"+count+"</td>"+
        "<td>"+discount.getDiscountCode()+"</td>"+
-       "<td>"+discountPrice+"<td>"+
+       "<td>"+discountPrice+"</td>"+
        "<td>"+discount.getUsageLimit()+"</td>"+
        "<td>"+discount.getUsageCount()+"</td>"+
-       "<td><a class='btn btn-warning' href='../CA2/GoEditDiscount?discountId="+discount.getDiscountId()+"'\">Edit</button></td>"+
-       "<td><a class='btn btn-warning' href='../CA2/GoDeleteDiscount?discountId="+discount.getDiscountId()+"'\">Delete</button></td>"+
+       "<td><a class='btn btn-warning' href='"+request.getContextPath()+"/GoEditDiscount?discountId="+discount.getDiscountId()+"'\">Edit</button></td>"+
+       "<td><a class='btn btn-warning' href='"+request.getContextPath()+"/GoDeleteDiscount?discountId="+discount.getDiscountId()+"'\">Delete</button></td>"+
        "</tr>");
        
        count++;
@@ -99,7 +108,7 @@ double  discountCount = (double)request.getAttribute("discountCount");
    double Pages = (double)Math.ceil((double) discountCount/(double)10.0);
 
    for(int i = 0 ; i < Pages; i++)
-out.print("<a  class='active' href='../GoDiscountTable?pg="+(i+1)+"'>"+ (i+1) +"</a>");	          
+out.print("<a  class='active' href='"+request.getContextPath()+"/GoDiscountTable?pg="+(i+1)+"'>"+ (i+1) +"</a>");	          
 %>
 </div>
 </div>

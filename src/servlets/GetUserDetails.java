@@ -37,11 +37,16 @@ public class GetUserDetails extends HttpServlet {
 		try {
 		String email = request.getParameter("email");
 		String pwd = request.getParameter("pwd");
-		if(request.getParameter("email") != null) {
-		}else {
+		
+		System.out.print(email);
+		if(request.getParameter("email") == null) {
 			RequestDispatcher rd = request.getRequestDispatcher("CA1/Login.jsp");
 			rd.forward(request, response);
-		}
+			
+		}else {
+//			RequestDispatcher rd = request.getRequestDispatcher("CA1/Login.jsp");
+//			rd.forward(request, response);
+//		
 		UserDetailsDB userDB = new UserDetailsDB();
 		UserDetails user;
 		
@@ -60,12 +65,13 @@ public class GetUserDetails extends HttpServlet {
 			// Handling forward link
 			link = "/GoProfilePage";
 			
-		
+
 		}// else ends here
-		
 		// Forwards from here
 		RequestDispatcher rd = request.getRequestDispatcher(link);
 		rd.forward(request, response);
+		}
+
 		}catch(Exception e){
 			System.out.print(e);
 			RequestDispatcher rd = request.getRequestDispatcher("CA1/Login.jsp?errorCode=invalidLogin");

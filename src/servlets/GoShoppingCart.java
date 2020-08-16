@@ -15,6 +15,8 @@ import valueBean.CartDetails;
 import valueBean.ProductDetails;
 import utilityBean.ProductDetailsDB;
 import valueBean.ProductCart;
+import valueBean.DiscountDetails;
+import utilityBean.DiscountDetailsDB;
 
 /**
  * Servlet implementation class GoShoppingCart
@@ -35,6 +37,10 @@ public class GoShoppingCart extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+				
+				
+				
 		HttpSession session = request.getSession();
 		ArrayList<CartDetails> cart = null;
 		if(session.getAttribute("cart") != null) cart = (ArrayList<CartDetails>)session.getAttribute("cart");
@@ -58,9 +64,44 @@ public class GoShoppingCart extends HttpServlet {
 		// Set the product cart into the req obj
 		request.setAttribute("prodCT", prodCT);
 		
+		// Get all the product categories
+		try {
+			productDB = new ProductDetailsDB();
+			ArrayList<String> categories = new ArrayList<String>();
+			
+			categories = productDB.getProductCategories();
+			
+			request.setAttribute("productCategories", categories);
+
+			}catch(Exception e){
+				System.out.print(e);
+			}
+		
+		// Get all the product categories
+		
+		String discountCd= request.getParameter("discountCode");
+		if(discountCd !=null) {
+			
+			try {
+				DiscountDetailsDB discountDB = new DiscountDetailsDB();
+				DiscountDetails discount = new DiscountDetails();
+
+				discount = discountDB.getDiscountValue(discountCd);
+				System.out.print(discount.getDiscountCode());
+				request.setAttribute("discountDetails", discount);
+
+				}catch(Exception e){
+					System.out.print(e);
+				}
+			
+		}
+
+		
 		// Forwards to ShoppingCart.jsp
 		RequestDispatcher rd = request.getRequestDispatcher("CA1/ShoppingCart.jsp");
 		rd.forward(request, response);
+		
+		
 	}
 
 	/**

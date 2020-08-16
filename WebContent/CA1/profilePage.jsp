@@ -27,7 +27,7 @@
 		  <div class="collapse navbar-collapse" id="navbarSupportedContent">
   		  <ul class="navbar-nav mr-auto">
     		  <li class="nav-item active">
-    		    <a class="nav-link" href="./CA1/Home.jsp">Home <span class="sr-only">(current)</span></a>
+    		    <a class="nav-link" href="<%=request.getContextPath()%>/GoHome">Home <span class="sr-only">(current)</span></a>
     		  </li>
     		  <li class="nav-item dropdown">
     		    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -37,22 +37,26 @@
 <%
 try{
 ArrayList<String> categories = (ArrayList<String>)request.getAttribute("productCategories");
-
 for (String category : categories) {    
     // Style this line of code!
-    out.print("<a href='../CA2/GoProductListing?category="+category+"' class='dropdown-item'>"+category.toUpperCase()+"</a><br>");
+    out.print("<a href='"+request.getContextPath()+"/GoProductListing?category="+category+"' class='dropdown-item'>"+category.toUpperCase()+"</a><br>");
 }
 
 }catch(Exception e){
-	RequestDispatcher rd = request.getRequestDispatcher("./Home.jsp");
+	System.out.print("it works");
+	RequestDispatcher rd = request.getRequestDispatcher(request.getContextPath()+"/GoHome");
 	rd.forward(request, response);
 	}
-%>	
+
+%>
     		 </div>
   		    </li>
+  		      <li class="nav-item">
+    		    <a class="nav-link" href="<%=request.getContextPath()%>/GoShoppingCart">Cart <span class="sr-only">(current)</span></a>
+    		  </li>
  		   </ul>
-   		 <form class="form-inline my-2 my-lg-0">
-   		   <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+   		 <form action="./SearchProduct" class="form-inline my-2 my-lg-0">
+   		   <input class="form-control mr-sm-2" type="search" name="searchStr" placeholder="Search" aria-label="Search">
     		  <button class="btn btn-warning my-2 my-sm-0" type="submit">Search</button>
          </form>
    		 <ul  class="navbar-nav mr-right dropleft" style="margin-left:20px" >
@@ -62,15 +66,16 @@ for (String category : categories) {
 
 		UserDetails user = (UserDetails)session.getAttribute("user");
 	        String pfp = user.getPfp();
-	        out.print(pfp);
-	        out.print("<a href='nav-link dropdown-toggle ' style='margin:0px' href='#' id='navbarDropdown' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'><img src='."+pfp+"' alt='userPfp' width=\"auto\" height=\"60px\"></a>");
+	        out.print("<a href='nav-link dropdown-toggle ' style='margin:0px' href='#' id='navbarDropdown' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'><img src='"+request.getContextPath()+"/CA1/"+pfp+"' alt='userPfp' width=\"auto\" height=\"60px\"></a>");
 	        out.print("<div class='dropdown-menu' aria-labelledby='navbarDropdown'>" +
-	      "<a class='dropdown-item' href='CA1/profilePage.jsp'>Profile</a>" +
+	      "<a class='dropdown-item' href='"+request.getContextPath()+"/GoProfilePage'>Profile</a>" +
+	    			"<div class='dropdown-divider'></div>" +
+	    	      "<a class='dropdown-item' href='"+request.getContextPath()+"/GoPurchaseHistory'>Purchase History</a>" +
 	"<div class='dropdown-divider'></div>" +
-	   "<a class='dropdown-item' href='./CA1/logout.jsp'>Log Out</a>" +
+	   "<a class='dropdown-item' href='"+request.getContextPath()+"/CA1/logout.jsp'>Log Out</a>" +
 	 "</div>");
 	}else{
-		out.print("<a class=\"nav-link\" href='./CA1/Login.jsp'>LOGIN</a>");
+		out.print("<a class=\"nav-link\" href='"+request.getContextPath()+"/GetUserDetails'>LOGIN</a>");
 	}
 %>
 
@@ -89,14 +94,14 @@ if(session.getAttribute("user")!=null){
 	   		    		"<div class='container padding-0'>"+
 	   		    			"<div class='row padding-0 text-center justify-content-center'>" +
 	   		   		  		    "<div class='col-md-5 padding-0 text-right '>" +
-    		    					"<img src='."+user.getPfp()+"' alt='userPfp' class='profilePic'>"+
+    		    					"<img src='./CA1"+user.getPfp()+"' alt='userPfp' class='profilePic'>"+
     							"</div>" +
 	   		   		  		    "<div class='col-md-6 text-center padding-0'>" +	
-	   	    		  			 "<form onsubmit='pfpCheck()' action='./UpdateProfile' class='formProfile'>"+
+	   	    		  			 "<form action='./UpdateProfile'  method='post' enctype='multipart/form-data' class='formProfile'>"+
      								"<input type='hidden' name='userId' value='"+user.getUserId()+"'/>"+
     								"<div><label class='text-warning'>Name</label><br><input type='text' name='name' value='"+user.getName()+"' required></div>"+
     								"<div><label class='text-warning'>Email</label><br><input type='text' name='email' value='"+user.getEmail()+"' required></div>"+
-    								"<div><label class='text-warning'>Profile Picture Link or Directory</label><br><input type='text' id='pfp' name='pfp' value='"+user.getPfp()+"'></div>"+
+    								"<div><label class='text-warning'>Profile Picture</label><br><input type='file' name='guru_file' size='50' accept='image/*' /></div>"+
     								"<div><label class='text-warning'>Phone Number</label><br>s<input type='tel' pattern='[0-9]{8,14}' name='phoneNo' value='"+user.getPhoneNo()+"'></div>"+
 									"<input type='submit' class='submit bg-warning col-12' value='Update Profile Details'><br>"+
 								 "</form>"+
@@ -113,11 +118,6 @@ if(session.getAttribute("user")!=null){
 
 <%@ include file = "footer.jsp" %>
 <script>
-function pfpCheck(){
-	if(document.getElementById("pfp").value == ""){
-		document.getElementById("pfp").value = "/images/u101.png"
-	}	
-}
 
 </script>
  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

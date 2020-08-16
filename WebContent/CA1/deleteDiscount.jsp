@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     <%@page import="java.sql.*" %>
-    <%@page import="valueBean.DiscountDetails" %>
+    <%@page import="valueBean.DiscountDetails" %><%@page import ="valueBean.UserDetails" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +12,15 @@
 </head>
 <body>
 <div class="container text-center">
+<%
+try{
+	UserDetails user = (UserDetails)session.getAttribute("user");
+	if(user.getRole().equals("M")) response.sendRedirect("./CA1/errorPage.jsp?type=AccessDenied");
+}catch(Exception e){
+	 response.sendRedirect("./CA1/errorPage.jsp?type=AccessDenied");
+}
 
+%>
 <%
 DiscountDetails discount = (DiscountDetails)request.getAttribute("discount");
 int discountId = discount.getDiscountId();
@@ -29,9 +37,10 @@ out.print("<div class='text-warning'><h1>Are you sure you want to delete this di
                "<div class='text-white'>"+discount.getUsageCount()+"</div>"+
 "</div>");
 %>
+<a class="btn btn-warning" href='./DeleteDiscount?discountId=<%= discountId %>'>Confirm Delete!</a>
+
 </div>
 <br>
-<a class="btn btn-warning" href='../CA2/DeleteDiscount?discountId=<%= discountId %>'>Confirm Delete!</a>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>

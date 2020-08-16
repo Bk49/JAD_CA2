@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
        <%@page import="java.sql.*" %>
-       <%@page import="valueBean.ProductDetails" %>
+       <%@page import="valueBean.ProductDetails" %><%@page import ="valueBean.UserDetails" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,6 +12,12 @@
 </head>
 <body>
 <%
+try{
+	UserDetails user = (UserDetails)session.getAttribute("user");
+	if(user.getRole().equals("M")) response.sendRedirect("./CA1/errorPage.jsp?type=AccessDenied");
+}catch(Exception e){
+	 response.sendRedirect("./CA1/errorPage.jsp?type=AccessDenied");
+}
 
 %>
 <div class="d-flex justify-content-center text-center">
@@ -33,9 +39,14 @@
   </div>
   
   <div class="form-row">
-    <div class="form-group col-md-6">
-      <label>Role</label><br>
-      <input type="text" name="role"  value="" required/>
+          <div class="form-group  col-md-6">
+      <label>Role</label>
+      <select id="role" name="role" class="form-control" required>
+		<option></option>
+		<option>M</option>
+		<option>A</option>
+
+      </select>
     </div>
      <div class="form-group col-md-6">
       <label>Profile Picture Path</label><br>
@@ -51,7 +62,8 @@
   
     <div class="form-group">
     <label>Phone Number</label><br>
-		<input  type="text" name="phoneNo" value=""/>
+				<input  type='tel' pattern='[0-9]{8,14}' name="phoneNo" value="" />
+		
   </div>
  
 	<input type="submit" class="submit bg-warning" value="ADD USER"/>

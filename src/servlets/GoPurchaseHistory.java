@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import utilityBean.OrderDB;
+import utilityBean.ProductDetailsDB;
 import valueBean.UserDetails;
 import valueBean.Order;
 
@@ -34,6 +35,18 @@ public class GoPurchaseHistory extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// Get all the product categories
+		try {
+			ProductDetailsDB productDB = new ProductDetailsDB();
+			ArrayList<String> categories = new ArrayList<String>();
+			
+			categories = productDB.getProductCategories();
+			
+			request.setAttribute("productCategories", categories);
+
+			}catch(Exception e){
+				System.out.print(e);
+			}
 		// Get the userId from the session
 		HttpSession session = request.getSession();
 		UserDetails user = (UserDetails)session.getAttribute("user");

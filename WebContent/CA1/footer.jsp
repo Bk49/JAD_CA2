@@ -15,18 +15,18 @@
           <div class="col-xs-6 col-md-3">
             <h6>Categories</h6>
             <ul class="footer-links">
-              <li><a href='./GoProductListing?category=Gaming Mouse Pads'>Gaming Mouse Pads</a></li>
-              <li><a href='./GoProductListing?category=Gaming Mouse'>Gaming Mouse</a></li>
-              <li><a href='./GoProductListing?category=Gaming Keyboard'>Gaming Keyboard</a></li>
-              <li><a href='./GoProductListing?category=Gaming Headphones'>Gaming Headphones</a></li>
-              <li><a href='./GoProductListing?category=Computer Graphics Card'>Computer Graphics Card</a></li>
+              <li><a href='"+request.getContextPath()+"/GoProductListing?category=Gaming Mouse Pads'>Gaming Mouse Pads</a></li>
+              <li><a href='"+request.getContextPath()+"/GoProductListing?category=Gaming Mouse'>Gaming Mouse</a></li>
+              <li><a href='"+request.getContextPath()+"/GoProductListing?category=Gaming Keyboard'>Gaming Keyboard</a></li>
+              <li><a href='"+request.getContextPath()+"/GoProductListing?category=Gaming Headphones'>Gaming Headphones</a></li>
+              <li><a href='"+request.getContextPath()+"/GoProductListing?category=Computer Graphics Card'>Computer Graphics Card</a></li>
             </ul>
           </div>
 
-          <div class="col-xs-6 col-md-3">
+          <div class="col-xs-6 col-md-3">	    		
             <h6>Quick Links</h6>
             <ul class="footer-links">
-              <li><a href="./CA1/Home.jsp">Home</a></li>
+              <li><a href="<%=request.getContextPath()%>/GoHome">Home</a></li>
               <li><a href="./GoProductListing">All Products</a></li>
               <li><a href="./GoProductListing">Categories</a></li>
             </ul>
